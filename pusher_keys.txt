@@ -1,0 +1,12 @@
+Development:
+app_id = "716380"
+key = "65d21800c7e4ac69744e"
+secret = "98a552c593d60f5254c6"
+cluster = "ap2"
+
+
+Production:
+app_id = "719112"
+key = "e59099f1080388ad9ae4"
+secret = "9af7988bdcb7d6c7897b"
+cluster = "ap2"
