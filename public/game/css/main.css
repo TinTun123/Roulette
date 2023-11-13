@@ -28,7 +28,13 @@ input, input:before, input:after {
 ::-moz-selection { background: transparent;color:inherit; }
 
 #canvas{
-    position: fixed; 
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    /* width: 80% !important;
+    height: 80% !important;  */
+    translate: -50% -50%;
+    border-radius: 16px;
 }
 
 canvas {

@@ -1,0 +1,639 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Roulette</title>
+        <link rel="stylesheet" href="/css/tailwind.css">
+        <script type="text/javascript" src="/game/js/jquery-3.2.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+        <style>
+            /*@import "//compass/css3";*/
+            *, *:before, *:after {
+                box-sizing: border-box;
+            }
+            html {
+                overflow-y: scroll;
+            }
+            body {
+                background: #c1bdba;
+                font-family: 'Titillium Web', sans-serif;
+            }
+            a {
+                text-decoration: none;
+                color: #1ab188;
+                transition: 0.1s ease;
+            }
+            a:hover {
+                color: #179b77;
+            }
+            .form {
+                background: rgba(19, 35, 47, .9);
+                padding: 40px;
+                max-width: 600px;
+                margin: 40px auto;
+                border-radius: 4px;
+                box-shadow: 0 4px 10px 4px rgba(19, 35, 47, .3);
+            }
+            .tab-group {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 40px 0;
+            }
+            .tab-group:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .tab-group li a {
+                display: block;
+                text-decoration: none;
+                padding: 15px;
+                background: rgba(160, 179, 176, .25);
+                color: #a0b3b0;
+                font-size: 20px;
+                float: left;
+                width: 50%;
+                text-align: center;
+                cursor: pointer;
+                transition: 0.1s ease;
+            }
+            .tab-group li a:hover {
+                background: #179b77;
+                color: #fff;
+            }
+            .tab-group .active a {
+                background: #1ab188;
+                color: #fff;
+            }
+            /*.tab-content > div:last-child {*/
+            .tab-content > div:first-child {
+                display: none;
+            }
+            h1 {
+                text-align: center;
+                color: #fff;
+                font-weight: 300;
+                margin: 0 0 40px;
+            }
+            label {
+                position: absolute;
+                transform: translateY(6px);
+                left: 13px;
+                color: rgba(255, 255, 255, .5);
+                transition: all 0.2s ease;
+                -webkit-backface-visibility: hidden;
+                pointer-events: none;
+                font-size: 22px;
+            }
+            label .req {
+                margin: 2px;
+                color: #1ab188;
+            }
+            label.active {
+                transform: translateY(50px);
+                left: 2px;
+                font-size: 14px;
+            }
+            label.active .req {
+                /*opacity: 0;*/
+            }
+            label.highlight {
+                color: #fff;
+            }
+            input+label{
+                right: 0px;
+                color: red;
+                font-size: 13px;
+                left: unset;
+            }
+            input, textarea {
+                font-size: 22px;
+                display: block;
+                width: 100%;
+                /*height: 100%;*/
+                padding: 5px 10px;
+                background: none;
+                background-image: none;
+                border: 1px solid #a0b3b0;
+                color: #fff;
+                border-radius: 0;
+                transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            }
+            input:focus, textarea:focus {
+                outline: 0;
+                border-color: #1ab188;
+            }
+            textarea {
+                border: 2px solid #a0b3b0;
+                resize: vertical;
+            }
+            .field-wrap {
+                position: relative;
+                margin-bottom: 40px;
+            }
+            .top-row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .top-row > div {
+                float: left;
+                width: 48%;
+                margin-right: 4%;
+            }
+            .top-row > div:last-child {
+                margin: 0;
+            }
+            .button {
+                border: 0;
+                outline: none;
+                border-radius: 0;
+                padding: 15px 0;
+                font-size: 2rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                background: #1ab188;
+                color: #fff;
+                transition: all 0.1s ease;
+                -webkit-appearance: none;
+            }
+            .button:hover, .button:focus {
+                background: #179b77;
+            }
+            .button-block {
+                display: block;
+                width: 100%;
+            }
+            .forgot {
+                margin-top: -20px;
+                text-align: right;
+            }
+
+            .chat-box {
+                width: 300px;
+                border-radius: 18px;
+                overflow: hidden;
+                background-color: #fff;
+            }
+
+            .chat-header {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px;
+                border-top: 18px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .chat-content {
+                padding: 10px;
+                height: 60vh;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .message {
+                display: flex;
+                flex-direction: column;
+                
+                align-items: flex-start;
+                width: fit-content;
+            }
+
+            .upper {
+                display: flex;
+                gap: 2px;
+                align-items: start;
+            }
+
+            .message .text {
+                /* CSS styles for chat message text c7bfbf */
+                background-color: #7FA2FD;
+                border-radius: 8px;
+                border-top-left-radius: 0px;
+                color: white;
+                font-weight: 400;
+                padding: 8px;
+                margin-left: 32px;
+            }
+
+            .message .time {
+                text-align: right;
+                color: #9b9393c3;
+                font-size: 12px;
+                align-self: end;
+            }
+
+            #name {
+                color: rgba(0, 0, 0, 0.662);
+                font-size: 14px;
+
+            }
+
+            .chat-input {
+                padding: 10px;
+                display: flex;
+            }
+
+            .chat-input input {
+                flex: 1;
+                margin-right: 10px;
+                align-items: center;
+               
+            }
+
+            
+            .chat-title {
+                font-weight: 600;
+            }
+
+            .send-button:hover svg path {
+                transition: all;
+                fill: #B1C6FD;
+            }
+
+            .send-button {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .send-button:active svg path {
+                transition: all;
+                fill: #7FA2FD;
+            }
+    
+        </style>
+    </head>
+
+    <body>
+        <div class="m-8" id="sidebar">
+            <h1 class="text-left font-semibold">Admin Dashboard</h1>    
+        </div>
+        <div id="user-grid" class="m-8 flex justify-between items-start">
+            <div id="user" class="grid grid-cols-4 flex-1 gap-4">
+                <div class="p-4 bg-[#211919] rounded-[12px] relative shadow-md user" data-username="TINTUN3" data-id="">
+                    <div class="flex gap-x-2"> 
+                        <div id="profile_icon">
+                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.667 3.06665C10.9879 3.06635 9.3381 3.50644 7.88226 4.34301C6.42641 5.17957 5.21544 6.38335 4.37022 7.83419C3.525 9.28503 3.07509 10.9322 3.0654 12.6112C3.05571 14.2903 3.48658 15.9425 4.315 17.403C4.87493 16.6753 5.59472 16.0861 6.4187 15.681C7.24269 15.2759 8.1488 15.0657 9.067 15.0666H16.267C17.1852 15.0657 18.0913 15.2759 18.9153 15.681C19.7393 16.0861 20.459 16.6753 21.019 17.403C21.8474 15.9425 22.2783 14.2903 22.2686 12.6112C22.2589 10.9322 21.809 9.28503 20.9638 7.83419C20.1185 6.38335 18.9076 5.17957 17.4517 4.34301C15.9959 3.50644 14.3461 3.06635 12.667 3.06665ZM22.1986 19.9578C23.803 17.8662 24.6708 15.3028 24.667 12.6666C24.667 6.03905 19.2946 0.666656 12.667 0.666656C6.0394 0.666656 0.667006 6.03905 0.667006 12.6666C0.663044 15.3028 1.53089 17.8662 3.1354 19.9578L3.1294 19.9794L3.5554 20.475C4.68086 21.7908 6.07826 22.847 7.65128 23.5706C9.22429 24.2942 10.9355 24.6682 12.667 24.6666C15.0998 24.6711 17.4759 23.9321 19.477 22.5486C20.3301 21.9592 21.1037 21.2623 21.7786 20.475L22.2046 19.9794L22.1986 19.9578ZM12.667 5.46665C11.7122 5.46665 10.7965 5.84594 10.1214 6.52107C9.44628 7.1962 9.067 8.11187 9.067 9.06665C9.067 10.0214 9.44628 10.9371 10.1214 11.6122C10.7965 12.2874 11.7122 12.6666 12.667 12.6666C13.6218 12.6666 14.5374 12.2874 15.2126 11.6122C15.8877 10.9371 16.267 10.0214 16.267 9.06665C16.267 8.11187 15.8877 7.1962 15.2126 6.52107C14.5374 5.84594 13.6218 5.46665 12.667 5.46665Z" fill="#ffffff"/>
+                            </svg>
+                        </div>
+
+                        <!-- <div class="flex flex-col gap-2">
+                            <span class="text-base text-white font-medium">TINTUN</span>
+                            <span class="text-sm text-white font-medium">tto@gmail.com</span>
+                            <div class="flex gap-x-1">
+                                <span class="text-sm text-white">Balance:</span>
+                                <span class="text-sm text-white font-medium">1000$</span>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                    <div class="absolute top-2 right-2 group cursor-pointer">
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="group-hover:fill-[#ffffff]/80 group-active:fill-[#ffffff] transition-colors fill-[#ffffff]" d="M15.3772 4.91037C14.9757 3.95214 14.3916 3.08118 13.6575 2.34603C12.9256 1.6096 12.0561 1.0241 11.0986 0.622758C10.1176 0.209622 9.06358 -0.00215159 7.99916 1.648e-05H7.96337C6.88073 0.00538494 5.83388 0.220123 4.84788 0.642442C3.8985 1.04789 3.03722 1.63444 2.31218 2.3693C1.58516 3.1028 1.00777 3.97071 0.612163 4.92468C0.201503 5.91671 -0.0065805 6.98085 0.000158605 8.05449C0.00552706 9.2964 0.302582 10.5294 0.857323 11.6317V14.3517C0.857323 14.8062 1.22596 15.1749 1.6787 15.1749H4.39514C5.5026 15.7337 6.7247 16.0277 7.96516 16.0338H8.00274C9.07285 16.0338 10.109 15.8262 11.086 15.42C12.0388 15.0235 12.905 14.4448 13.636 13.7164C14.3733 12.9845 14.9531 12.1292 15.3593 11.1754C15.7798 10.1876 15.9946 9.13713 16 8.0527C16.0035 6.96291 15.7924 5.90532 15.3772 4.91037ZM4.42735 8.87587C3.95492 8.87587 3.57018 8.49113 3.57018 8.01691C3.57018 7.5427 3.95492 7.15796 4.42735 7.15796C4.89977 7.15796 5.28451 7.5427 5.28451 8.01691C5.28451 8.49113 4.90156 8.87587 4.42735 8.87587ZM7.99916 8.87587C7.52674 8.87587 7.142 8.49113 7.142 8.01691C7.142 7.5427 7.52674 7.15796 7.99916 7.15796C8.47159 7.15796 8.85633 7.5427 8.85633 8.01691C8.85633 8.49113 8.47159 8.87587 7.99916 8.87587ZM11.571 8.87587C11.0986 8.87587 10.7138 8.49113 10.7138 8.01691C10.7138 7.5427 11.0986 7.15796 11.571 7.15796C12.0434 7.15796 12.4281 7.5427 12.4281 8.01691C12.4281 8.49113 12.0434 8.87587 11.571 8.87587Z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div id="message-box">
+                <div class="chat-box" id="chat-box" style="z-index: 999;">
+                    <div class="chat-header">
+                        <span class="chat-title">ROULETTE ROYALl</span>
+                        <div class="close-chat">
+                            <svg width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.765271 0.353894C0.990842 0.12839 1.29674 0.00170898 1.6157 0.00170898C1.93466 0.00170898 2.24056 0.12839 2.46613 0.353894L8.42035 6.30811L14.3746 0.353894C14.6014 0.134781 14.9053 0.0135377 15.2207 0.0162783C15.5361 0.019019 15.8378 0.145524 16.0608 0.368546C16.2838 0.591569 16.4103 0.893264 16.413 1.20865C16.4158 1.52404 16.2945 1.82789 16.0754 2.05475L9.27078 8.8594C9.04521 9.08491 8.73931 9.21159 8.42035 9.21159C8.10139 9.21159 7.79549 9.08491 7.56992 8.8594L0.765271 2.05475C0.539767 1.82918 0.413086 1.52328 0.413086 1.20432C0.413086 0.885365 0.539767 0.579466 0.765271 0.353894Z" fill="white"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="chat-content">
+                    <!-- Chat messages go here -->
+                    </div>
+
+                    <div class="chat-input">
+                        <input type="text" class="rounded-full text-gray-600 text-sm" id="message-input" value="something" aria-describedby="Enter your message" placeholder="Enter your message">
+                        <div class="send-button" id="send-button">
+                            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M31.9284 1.37156C32.0011 1.18984 32.0189 0.990769 31.9796 0.799023C31.9403 0.607278 31.8455 0.431292 31.7071 0.292883C31.5687 0.154475 31.3927 0.0597316 31.201 0.020398C31.0092 -0.0189355 30.8102 -0.00112915 30.6284 0.0716097L1.53545 11.7092H1.53345L0.629478 12.0692C0.458264 12.1375 0.30926 12.2518 0.198924 12.3994C0.088588 12.5471 0.0212148 12.7224 0.00424629 12.9059C-0.0127222 13.0895 0.0213745 13.2742 0.10277 13.4395C0.184165 13.6049 0.309692 13.7446 0.465483 13.8431L1.28545 14.3631L1.28745 14.3671L11.2771 20.7229L17.6329 30.7125L17.6369 30.7165L18.1569 31.5365C18.2557 31.6917 18.3955 31.8166 18.5607 31.8975C18.726 31.9784 18.9104 32.0121 19.0936 31.9949C19.2768 31.9778 19.4517 31.9104 19.599 31.8002C19.7464 31.6901 19.8605 31.5414 19.9288 31.3705L31.9284 1.37156ZM28.2625 5.15143L13.275 20.1389L12.8451 19.4629C12.7663 19.3389 12.6611 19.2337 12.5371 19.1549L11.8611 18.725L26.8486 3.73748L29.2045 2.79552L28.2645 5.15143H28.2625Z" fill="#83A5FD"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+
+    <script>
+
+        let channels = {};
+        let userChatHistories = [{
+            userID : '',
+            chat : []
+        }];
+
+        let currentChatId = '';
+        var pusher = new Pusher('c200159740f4fd36e454', {
+                                cluster: 'ap1',
+                                authEndpoint: '/api/pusher/auth',
+                                auth: {
+                                        headers: {
+                                            'x-access-token': getCookie('token')
+                                        }
+                                    },
+                                forceTLS: true
+                    });
+
+        pusher.connection.bind('state_change', function (states) {
+            console.log('tto pusher conection: ', states);
+            if (states.current === 'connected') {
+                console.log('tto pusher connected');
+            }
+        }) 
+
+
+        $(document).ready(function () {
+            getUsers();
+            
+
+            $('#send-button').click(function() {
+                    const messageText = $('#message-input').val();
+                    let name = $('#chat-box .chat-title').text();
+                
+                    if (messageText) {
+                    // Create a new message element
+                        pushMessage(messageText, 'Admin');
+
+                        for (let i = 0; i < userChatHistories.length; i++) {
+                            if (userChatHistories[i].userId === currentChatId) {
+                                console.log('fount matching userId: ', currentChatId);
+                                userChatHistories[i].chat.push({
+                                    receiver : currentChatId,
+                                    sender : '65360b47873890cc0e53f811',
+                                    text : messageText,
+                                    timestamp : new Date()
+                                })
+                            }
+                        }
+
+                        channels[currentChatId].trigger('client-message', 
+                        {
+                            text : messageText,
+                            senderId : '65360b47873890cc0e53f811',
+                            receiverId : currentChatId,
+                            time : new Date()
+                        });
+
+                        const message = {
+
+                            senderId: '65360b47873890cc0e53f811',
+                            receiverId: currentChatId,
+                            text: messageText,
+                            time : new Date()
+
+                        };
+
+                        $.ajax({
+                            type : 'POST',
+                            url : '/api/message',
+                            data : JSON.stringify(message),
+                            contentType: 'application/json',
+                            headers: {
+                                'x-access-token': getCookie('token')
+                            } 
+                        }).then(res => {
+                            // console.log(res.message);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }
+                });
+        })
+
+        function pushMessage(text, name, msgTime = new Date()) {
+            const message = $('<div class="message"></div>');
+
+            const upperDiv = $('<div class="upper"></div>');
+
+            // Create a profile icon element
+            const profileIcon = $('<div class="profile-icon"><svg width="24" height="24" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.66699 2.26665C7.5476 2.26645 6.44773 2.55984 5.47717 3.11756C4.5066 3.67527 3.69929 4.47779 3.13581 5.44501C2.57233 6.41224 2.27239 7.51034 2.26593 8.62971C2.25947 9.74909 2.54672 10.8506 3.099 11.8242C3.47229 11.3391 3.95214 10.9463 4.50147 10.6762C5.05079 10.4061 5.65487 10.266 6.26699 10.2666H11.067C11.6791 10.266 12.2832 10.4061 12.8325 10.6762C13.3818 10.9463 13.8617 11.3391 14.235 11.8242C14.7873 10.8506 15.0745 9.74909 15.0681 8.62971C15.0616 7.51034 14.7617 6.41224 14.1982 5.44501C13.6347 4.47779 12.8274 3.67527 11.8568 3.11756C10.8863 2.55984 9.78638 2.26645 8.66699 2.26665ZM15.0214 13.5274C16.091 12.133 16.6696 10.4241 16.667 8.66665C16.667 4.24825 13.0854 0.666656 8.66699 0.666656C4.2486 0.666656 0.667001 4.24825 0.667001 8.66665C0.66436 10.4241 1.24292 12.133 2.3126 13.5274L2.3086 13.5418L2.5926 13.8722C3.34291 14.7494 4.2745 15.4535 5.32318 15.936C6.37186 16.4184 7.51267 16.6677 8.66699 16.6666C10.2889 16.6696 11.8729 16.177 13.207 15.2546C13.7757 14.8617 14.2914 14.3971 14.7414 13.8722L15.0254 13.5418L15.0214 13.5274ZM8.66699 3.86665C8.03047 3.86665 7.42002 4.11951 6.96994 4.5696C6.51985 5.01968 6.26699 5.63013 6.26699 6.26665C6.26699 6.90317 6.51985 7.51362 6.96994 7.9637C7.42002 8.41379 8.03047 8.66665 8.66699 8.66665C9.30351 8.66665 9.91396 8.41379 10.364 7.9637C10.8141 7.51362 11.067 6.90317 11.067 6.26665C11.067 5.63013 10.8141 5.01968 10.364 4.5696C9.91396 4.11951 9.30351 3.86665 8.66699 3.86665Z" fill="#C7BFBF"/></svg></div>');
+
+            // Create a message text element
+            const textdiv = $('<div class="text"></div>').text(text);
+
+            const userName = $('<span class="name" id="name"></span>').text(name);
+
+            const time = $('<span class="time"></span>').text(msgTime);
+
+            upperDiv.append(profileIcon, userName);
+
+            // Append the profile icon and message text to the message element
+            message.append(upperDiv, textdiv, time);
+
+            // Append the message element to the chat content
+            $('.chat-content').append(message);
+
+            // Clear the input field
+            $('#message-input').val('');
+        }
+
+        function formatAMPM(date) {
+                const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                
+                const dayOfWeek = daysOfWeek[date.getDay()];
+                const month = months[date.getMonth()];
+                const day = date.getDate();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                
+                // Determine whether it's AM or PM
+                const ampm = hours >= 12 ? "PM" : "AM";
+                
+                // Convert 24-hour time to 12-hour time
+                if (hours > 12) {
+                    hours -= 12;
+                }
+                
+                // Ensure single-digit hours are formatted correctly (e.g., "1:38" instead of "01:38")
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                
+                // Ensure single-digit minutes are formatted correctly
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                
+                return `${dayOfWeek} ${month} ${day} ${hours}:${minutes} ${ampm}`;
+            }
+
+            function getCookie(cname) {
+
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') { 
+                        c = c.substring(1);
+                    }if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+                }
+                return undefined;
+            };
+
+            async function getUsers () {
+                $.ajax({
+                    type : 'GET',
+                    url : '/users',
+                    headers : {
+                        'x-access-token': getCookie('token')
+                    },          
+                }).done(function (data) {
+
+                    displayUsers(data.users)
+                    subUsersChannels(data.users);
+                    fetchChatHistory(data.users);
+                }).fail(function (err) {
+                    console.error(err);
+                });
+
+            }
+            function fetchChatHistory(users) {
+                users.forEach((user) => {
+                    const payload = {
+                        senderId : '65360b47873890cc0e53f811',
+                        receiverId : user._id
+                    };
+                    $.ajax({
+                        type : 'GET',
+                        url : 'chatHistory',
+                        headers : {
+                            'x-access-token': getCookie('token')
+                        },
+                        contentType: 'application/json',
+                        data : {
+                            payload : JSON.stringify(payload), 
+                        } 
+                    }).done(function (data) {
+
+                        userChatHistories.push({
+                            userId : user._id,
+                            chat : data.message
+                        });
+
+                    }).fail(function (err) {
+                        console.log('fetchChatHis fail: ', err);
+                    });
+                })
+
+
+
+            }
+
+            function subUsersChannels(users) {
+             
+                users.forEach(user => {
+                    let channelName = `private-user-${user._id}`;
+
+
+                    channels[user._id] = pusher.subscribe(channelName);
+                    channels[user._id].bind('client-message', function (data) {
+
+                        for (let i = 0; i < userChatHistories.length; i++) {
+                            if (userChatHistories[i].userId === user._id) {
+                                userChatHistories[i].chat.push({
+                                    receiver : '65360b47873890cc0e53f811',
+                                    sender : user._id,
+                                    text : data.text,
+                                    timestamp : new Date()
+                                })
+                            }
+                        }
+                        
+                        if (currentChatId === user._id) {
+                            pushMessage(data.text, user.name)
+                        }
+
+                    });
+                    // console.log(channels[user.id]);
+                })
+            }
+
+            function displayUsers(users) {
+                // const userContainer = $('<div id="user" class="grid grid-cols-5 flex-1 gap-4"></div>'); // Get the container element
+
+                // Loop through the list of users
+                users.forEach((user) => {
+                    // Create elements for user card
+                    const userCard = $('<div class="p-4 bg-[#211919] rounded-[12px] flex gap-2 relative shadow-md user"></div>');
+                   
+                    userCard.data('username', user.name);
+                    userCard.data('id', user._id);
+                    currentChatId = user._id;
+
+                    const userIcon = $('<div id="profile_icon"><svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.667 3.06665C10.9879 3.06635 9.3381 3.50644 7.88226 4.34301C6.42641 5.17957 5.21544 6.38335 4.37022 7.83419C3.525 9.28503 3.07509 10.9322 3.0654 12.6112C3.05571 14.2903 3.48658 15.9425 4.315 17.403C4.87493 16.6753 5.59472 16.0861 6.4187 15.681C7.24269 15.2759 8.1488 15.0657 9.067 15.0666H16.267C17.1852 15.0657 18.0913 15.2759 18.9153 15.681C19.7393 16.0861 20.459 16.6753 21.019 17.403C21.8474 15.9425 22.2783 14.2903 22.2686 12.6112C22.2589 10.9322 21.809 9.28503 20.9638 7.83419C20.1185 6.38335 18.9076 5.17957 17.4517 4.34301C15.9959 3.50644 14.3461 3.06635 12.667 3.06665ZM22.1986 19.9578C23.803 17.8662 24.6708 15.3028 24.667 12.6666C24.667 6.03905 19.2946 0.666656 12.667 0.666656C6.0394 0.666656 0.667006 6.03905 0.667006 12.6666C0.663044 15.3028 1.53089 17.8662 3.1354 19.9578L3.1294 19.9794L3.5554 20.475C4.68086 21.7908 6.07826 22.847 7.65128 23.5706C9.22429 24.2942 10.9355 24.6682 12.667 24.6666C15.0998 24.6711 17.4759 23.9321 19.477 22.5486C20.3301 21.9592 21.1037 21.2623 21.7786 20.475L22.2046 19.9794L22.1986 19.9578ZM12.667 5.46665C11.7122 5.46665 10.7965 5.84594 10.1214 6.52107C9.44628 7.1962 9.067 8.11187 9.067 9.06665C9.067 10.0214 9.44628 10.9371 10.1214 11.6122C10.7965 12.2874 11.7122 12.6666 12.667 12.6666C13.6218 12.6666 14.5374 12.2874 15.2126 11.6122C15.8877 10.9371 16.267 10.0214 16.267 9.06665C16.267 8.11187 15.8877 7.1962 15.2126 6.52107C14.5374 5.84594 13.6218 5.46665 12.667 5.46665Z" fill="#ffffff"/></svg></div>');
+                 
+                    // Add SVG content for user icon
+
+                    const userInfo = $('<div class="flex flex-col gap-2"></div>');
+                 
+                    const userName = $(' <span class="text-base text-white font-medium"></span>').text(user.name);
+                   
+                    const userEmail = $('<span class="text-sm text-white font-medium"></span>').text(user.email);
+                   
+                    const balanceDiv = $('<div class="flex gap-x-1"></div>');
+                   
+                    const balanceSpan = $('<span class="text-sm text-white"></span>').text('Balance: ');
+                    const balanceEle = $('<span class="text-sm text-white font-medium"></span>').text(user.credit);
+               
+                    const msgIcon = $('<div class="absolute top-2 right-2 group cursor-pointer"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="group-hover:fill-[#ffffff]/80 group-active:fill-[#ffffff] transition-colors fill-[#ffffff]" d="M15.3772 4.91037C14.9757 3.95214 14.3916 3.08118 13.6575 2.34603C12.9256 1.6096 12.0561 1.0241 11.0986 0.622758C10.1176 0.209622 9.06358 -0.00215159 7.99916 1.648e-05H7.96337C6.88073 0.00538494 5.83388 0.220123 4.84788 0.642442C3.8985 1.04789 3.03722 1.63444 2.31218 2.3693C1.58516 3.1028 1.00777 3.97071 0.612163 4.92468C0.201503 5.91671 -0.0065805 6.98085 0.000158605 8.05449C0.00552706 9.2964 0.302582 10.5294 0.857323 11.6317V14.3517C0.857323 14.8062 1.22596 15.1749 1.6787 15.1749H4.39514C5.5026 15.7337 6.7247 16.0277 7.96516 16.0338H8.00274C9.07285 16.0338 10.109 15.8262 11.086 15.42C12.0388 15.0235 12.905 14.4448 13.636 13.7164C14.3733 12.9845 14.9531 12.1292 15.3593 11.1754C15.7798 10.1876 15.9946 9.13713 16 8.0527C16.0035 6.96291 15.7924 5.90532 15.3772 4.91037ZM4.42735 8.87587C3.95492 8.87587 3.57018 8.49113 3.57018 8.01691C3.57018 7.5427 3.95492 7.15796 4.42735 7.15796C4.89977 7.15796 5.28451 7.5427 5.28451 8.01691C5.28451 8.49113 4.90156 8.87587 4.42735 8.87587ZM7.99916 8.87587C7.52674 8.87587 7.142 8.49113 7.142 8.01691C7.142 7.5427 7.52674 7.15796 7.99916 7.15796C8.47159 7.15796 8.85633 7.5427 8.85633 8.01691C8.85633 8.49113 8.47159 8.87587 7.99916 8.87587ZM11.571 8.87587C11.0986 8.87587 10.7138 8.49113 10.7138 8.01691C10.7138 7.5427 11.0986 7.15796 11.571 7.15796C12.0434 7.15796 12.4281 7.5427 12.4281 8.01691C12.4281 8.49113 12.0434 8.87587 11.571 8.87587Z"/></svg></div>');
+                    balanceDiv.append(balanceSpan);
+                    balanceDiv.append(balanceEle);
+
+                    // Append user elements to the user card
+                    userInfo.append(userName);
+                    userInfo.append(userEmail);
+                    userInfo.append(balanceDiv);
+                    userCard.append(userIcon);
+                    userCard.append(userInfo);
+                    userCard.append(msgIcon);
+
+                    // Append the user card to the user container
+                    $('#user').append(userCard);
+                });
+
+                $('.user').click(function () {
+
+                    let userName = $(this).data('username');
+                    currentChatId = $(this).data('id');
+
+                    $('.chat-content').empty();
+
+                    userChatHistories.forEach(chat => {
+                 
+                        if (chat.userId === currentChatId) {
+                            chat.chat.forEach(msg => {
+                               
+                                if (msg.sender === '65360b47873890cc0e53f811') {
+                                    pushMessage(msg.text, 'Admin', formatAMPM(new Date(msg.timestamp)));
+                                } else {
+                                    pushMessage(msg.text, userName, formatAMPM(new Date(msg.timestamp)));
+                                }
+                            })
+                        }
+                    })
+                    
+                    $('#chat-box .chat-title').text(userName);
+
+                });
+            }
+
+    </script>
+</html>

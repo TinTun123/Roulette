@@ -89,16 +89,34 @@ function CInterface(){
         _oSpinBut.setAlign("left");
         _oSpinBut.addEventListener(ON_MOUSE_UP, this._onSpin, this);
         // window.setInterval(() => {
-        //     this._onSpin();
+        //     this._onSpin(); 
         // }, 3000);
         if(!window.pusherBinded){
             window.pusherBinded = true
             channel.bind('my-event', (data) => {
+                console.log('tto my-event triggered');
                     // alert(JSON.stringify(data));
                     // window.SPIN();
                     // CInterface()._onSpin()
-                    console.log(data.number);
+                    // console.log('tto Cinterface pusher my-event: ', data.number);
                     if(data.number) this._onSpin(data.number, data.numbers);
+
+                    console.log('fetching statistic from CInterface');
+                        $.ajax({
+                        type : 'GET',
+                        url : '/totalSpin',
+                        headers: {
+                            'x-access-token': getCookie('token')
+                        }
+                    }).done (function (data) {
+                        
+                        totalSpin = data.totalSpin;
+                        
+
+                        fetchStatistic();
+                    }).fail(function (error) {
+                        console.log(error);
+                    })
             });
         }
 

@@ -148,7 +148,7 @@ function CGame(oData){
 
         _iTimeElaps = 0;
         _iFactor = 0;
-    };
+    }; 
     
     this._startBallSpinAnim = function(num, nums){
         var aNumbersBetted=_oMySeat.getNumbersBetted();

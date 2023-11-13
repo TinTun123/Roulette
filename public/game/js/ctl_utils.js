@@ -125,17 +125,27 @@ function sizeHandler() {
     var h;
     var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
     if (iOS){
+
         h = getIOSWindowHeight();
+
     } else{
+
         h = getSize("Height");
+
     }
 
-    var w = getSize("Width");
+    var w = getSize("Width") * ((s_bIsIphone || s_bMobile) ? 0.6 : 0.6);
     
     _checkOrientation(w,h);
+
     s_iScaleFactor = Math.min((h / CANVAS_HEIGHT), (w / CANVAS_WIDTH));
+    
     var destW = CANVAS_WIDTH * s_iScaleFactor;
     var destH = CANVAS_HEIGHT * s_iScaleFactor;
+
+    console.log('destW: ', destW);
+    console.log('destH: ', destH);
+
     var iAdd = 0;
     if (destH < h){
         iAdd = h - destH;
@@ -150,13 +160,15 @@ function sizeHandler() {
     var fOffsetY = ((h / 2) - (destH / 2));
     var fOffsetX = ((w / 2) - (destW / 2));
     var fGameInverseScaling = (CANVAS_WIDTH / destW);
-    if (fOffsetX * fGameInverseScaling < - EDGEBOARD_X || fOffsetY * fGameInverseScaling < - EDGEBOARD_Y){
+    if (fOffsetX * fGameInverseScaling < - EDGEBOARD_X || fOffsetY * fGameInverseScaling < - EDGEBOARD_Y) {
+
         s_iScaleFactor = Math.min(h / (CANVAS_HEIGHT - (EDGEBOARD_Y * 2)), w / (CANVAS_WIDTH - (EDGEBOARD_X * 2)));
         destW = CANVAS_WIDTH * s_iScaleFactor;
         destH = CANVAS_HEIGHT * s_iScaleFactor;
         fOffsetY = (h - destH) / 2;
         fOffsetX = (w - destW) / 2;
         fGameInverseScaling = (CANVAS_WIDTH / destW);
+
     }
                 
     s_fInverseScaling = fGameInverseScaling;

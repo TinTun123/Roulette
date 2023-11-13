@@ -2,15 +2,21 @@
 <html>
     <head>
         <title></title>
+        <!-- <link rel="stylesheet" href="/css/tailwind.css"> -->
         <link rel="stylesheet" href="/game/css/reset.css" type="text/css">
         <link rel="stylesheet" href="/game/css/main.css" type="text/css">
         <link rel="stylesheet" href="/game/css/orientation_utils.css" type="text/css">
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.css" type="text/css">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>       -->
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
 	<meta name="msapplication-tap-highlight" content="no"/>
-
+        <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <script type="text/javascript" src="/game/js/jquery-3.2.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/game/js/createjs-2015.11.26.min.js"></script>
@@ -48,6 +54,7 @@
         <script type="text/javascript" src="/game/js/CHistory.js"></script>
         <script type="text/javascript" src="/game/js/CRollingTextController.js"></script>
         <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+
         <style>
             /* make sidebar nav vertical */ 
             @media (min-width: 768px) {
@@ -70,6 +77,16 @@
               .navbar-nav > li > a{
                 padding: 12px 13px;
               }
+
+              #statistic {
+                    margin-left: 150px;
+                    margin-right: 1rem;
+                    margin-top: 2rem;
+                }
+                
+                #side-navi {
+                    top: 100px;
+                }
             }
             h1:not(.jumbotron-title){
                 text-align: center;
@@ -100,36 +117,282 @@
                 padding-left: 10px;
             }
 
+
+            .chat-icon {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                cursor: pointer;
+            }
+
+            .chat-box {
+                display: none;
+                position: fixed;
+                bottom: 0;
+                right: 20px;
+                width: 300px;
+                border-radius: 18px;
+                overflow: hidden;
+                background-color: #fff;
+            }
+
+            .mostExp {
+                background-color: #28871d;
+                color: white;
+                font-weight: 600;
+                display: inline-block;
+            }
+
+            .lessExp {
+                background-color: #007bff;
+                color: white;
+                font-weight: 600;
+                display: inline-block;
+            }
+
+            .chat-header {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px;
+                border-top: 18px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .chat-content {
+                padding: 10px;
+                height: 60vh;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .message {
+                display: flex;
+                flex-direction: column;
+                
+                align-items: flex-start;
+                width: fit-content;
+            }
+
+            .upper {
+                display: flex;
+                gap: 2px;
+                align-items: start;
+            }
+
+            .message .text {
+                /* CSS styles for chat message text c7bfbf */
+                background-color: #7FA2FD;
+                border-radius: 8px;
+                border-top-left-radius: 0px;
+                color: white;
+                font-weight: 400;
+                padding: 8px;
+                margin-left: 16px;
+            }
+
+            .message .time {
+                text-align: right;
+                color: #9b9393c3;
+                font-size: 12px;
+                align-self: end;
+            }
+
+            .chat-input {
+                padding: 10px;
+                display: flex;
+            }
+
+            .chat-input input {
+                flex: 1;
+                margin-right: 10px;
+                align-items: center;
+            }
+
+            #message-input:focus {
+                outline: none;
+                border-color: #7FA2FD;
+            }
+
+            #message-input {
+                border-radius: 100px;
+                padding-left: 1rem;
+                border-color: #7fa3fdac;
+            }
+
+            .close-chat {
+                background-color: none;
+                cursor: pointer;
+                transition: all;
+            }
+
+            .close-chat:hover svg path {
+                transition: all;
+                fill: #ccc;
+            }
+
+            .close-chat:active svg path {
+                fill: #9b9393;
+            }
+
+            .chat-title {
+                font-weight: 600;
+            }
+
+            .send-button:hover svg path {
+                transition: all;
+                fill: #B1C6FD;
+            }
+
+            .send-button {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .send-button:active svg path {
+                transition: all;
+                fill: #7FA2FD;
+            }
+
+            #selectFruit {
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                width: 200px;
+            }
+
+            /* Style for the label */
+            label {
+                font-weight: bold;
+            }
+
+            /* Style for the result */
+            #selectedFruit {
+                font-weight: bold;
+                color: green;
+            }
+
+            #downDiv {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 20px;
+                gap: 2rem;
+            }
+
+            #downDiv select {
+                background-color: #428bca;
+                color: white;
+            }
+
+            tr {
+                border-bottom: 1px solid rgba(188, 182, 182, 0.594);
+            }
+
+            #downDiv select:focus {
+                outline: none;
+                border: none;
+            }
+
+            #downDiv select option {
+                display: block;
+                padding: 2rem;
+                height: 2rem;
+            }
+
+            table .thead-dark {
+
+                background-color: black;
+                color: white;
+                font-weight: 700;
+
+            }
+
+            #score-ul {
+
+                text-align: center;
+                color: white;
+                font-weight: 600;
+                margin: 1rem;
+                display: flex;
+                background-color: black;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 16px;
+                padding-bottom: 16px;
+
+            }
+
+            .score-li {
+
+                display: flex;
+                gap: 4px;
+                padding: 2px 4px 2px 4px;
+                align-items: center;
+
+            }
+
         </style>
+
         <style>.codegena{position:relative;width:100%;height:0;padding-bottom:56.27198%;}.codegena iframe{position:absolute;top:0;left:0;width:100%;height:100%;}/*Youtube Embed Code : Created with Codegena.com */</style>
         
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
 
-        <div class="container" style="position: fixed;z-index: 999;top: 100px;width: fit-content;">
+        <div class="container" id="side-navi" style="position: fixed;z-index: 999;width: fit-content;">
             <div class="row">
                 <div class="col-sm-3" style="width: fit-content;height: 100%;border-color: #e7e7e7;padding: 0px 5px;">
                     <div class="sidebar-nav" style="font-size: 13px;">
                         <div class="navbar navbar-default" role="navigation">
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                                                        <span class="sr-only">Toggle navigation</span>
-                                                        <span class="icon-bar"></span>
-                                                        <span class="icon-bar"></span>
-                                                        <span class="icon-bar"></span>
-                                                    </button>
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
                                 <span class="visible-xs navbar-brand">Sidebar menu</span>
                             </div>
                             <div class="navbar-collapse collapse sidebar-navbar-collapse">
                                 <ul class="nav navbar-nav" id="nav-buttons">
-                                    <li data-action="aboutus" class="active"><a href="#">About us</a></li>
+
+                                    <li data-action="aboutus" class="active">
+                                        <a href="#">About us</a>
+                                    </li>
+
                                     <!-- <li data-action="see"><a href="#">See</a></li> -->
-                                    <li data-action="play"><a href="#">Roulette</a></li>
-                                    <li data-action="download"><a href="#">Statistics</a></li>
-                                    <li data-action="info"><a href="#">Info for Investors</a></li>
-                                    <li data-action="contacts"><a href="#">Contacts</a></li>
-                                    <li data-action=""><a href="#">Message</a></li>
-                                    <li data-action=""><a href="#">Registeration</a></li>
+                                    <li data-action="play">
+                                        <a href="#">Roulette</a>
+                                    </li>
+
+                                    <li data-action="download">
+                                        <a href="#">Archive</a>
+                                    </li>
+
+                                    <li data-action="info">
+                                        <a href="#">Info for Investors</a>
+                                    </li>
+
+                                    <li data-action="contacts">
+                                        <a href="#">Contacts</a>
+                                    </li>
+
+                                    <li data-action="statistic">
+                                        <a href="#">Statistic</a>
+                                    </li>
+
+                                    <li data-action="scores">
+                                        <a href="#">Scores</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/login">Registeration</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -141,134 +404,349 @@
 
 	<!-- <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div> -->
 
-    <div style="display: none;" data-page="aboutus">
-        <h1>About Us</h1>
-        <h3 class="counts">Hits:<span id="aboutus-count"></span></h3>
-        <section class="jumbotron" style="">
-            <div class="container">
-                <div class="row ">
-                    <div class="col-md  content-wrapper">
-                        <h1 class="jumbotron-title display-1">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
-                        </h1>
-                        <h5 class="jumbotron-subtitle">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi necessitatibus, quis autem iusto? Ratione assumenda sunt neque, explicabo minus consectetur harum. Voluptates quis, blanditiis doloribus! Quaerat ducimus magni animi, molestiae voluptatem beatae maxime! Tempora aliquam mollitia autem porro, dicta aut atque ipsa vero omnis. Aperiam, eos pariatur minima, ab mollitia perspiciatis, nostrum asperiores temporibus quibusdam expedita corporis. Eius eos autem, accusantium debitis libero tempora consequatur reprehenderit sint ut mollitia aliquid illo quasi molestias! Temporibus harum voluptatibus omnis, illo ullam? Soluta eius neque numquam quae inventore tenetur voluptatum sapiente voluptatem voluptas quidem similique consequatur rem quam illum itaque debitis natus doloremque, at facere expedita, autem, qui non, nostrum eaque. Explicabo cumque, quidem iste. Vero voluptate id eaque eos magnam nam, dolorem obcaecati tempora numquam, dolorum officiis, reiciendis excepturi, doloribus sed iste temporibus explicabo ducimus magni. Quis inventore unde doloremque ducimus, incidunt enim ipsa tenetur. Est deserunt, quibusdam. Facere earum quidem asperiores a eaque, inventore eveniet. Similique itaque deleniti blanditiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
-                        </h5>
-                    </div>
-                </div>
-                <div class="overlay"></div>
-            </div>
-            <div class="jumbotron-overlay"></div>
-        </section>
-    </div>
-
-    <div style="display: none;text-align: center;" data-page="see">
-        <h1>See</h1>
-    </div>
-
-    <div style="display: none;text-align: center;" data-page="download">
-        <h1>Statistics</h1>
-        <h3 class="counts">Download count:<span id="download-count"></span></h3>
-        
-        <section class="jumbotron" style="">
-            <div class="container">
-                <div class="row ">
-                    <div class="col-md  content-wrapper">
-                        <h1 class="jumbotron-title display-1">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
-                        </h1>
-                        <h5 class="jumbotron-subtitle">
-                            itiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
-                        </h5>
-
-                    </div>
-                </div>
-                <div class="overlay"></div>
-            </div>
-            <div class="jumbotron-overlay"></div>
-        </section>
-        <button class="btn btn-primary" style="margin-top: 20px;" onClick="downloadcsv()">Download excel file</button>
-    </div>
-
-    <div style="display: none;" data-page="info">
-        <h1>Info for Investors</h1>
-        <section class="jumbotron" style="">
-            <div class="container">
-                <div class="row ">
-                    <div class="col-md  content-wrapper">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Enter Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <div style="display: none;" data-page="aboutus">
+                <h1>About Us</h1>
+                <h3 class="counts">Hits:<span id="aboutus-count"></span></h3>
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
+                                </h1>
+                                <h5 class="jumbotron-subtitle">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi necessitatibus, quis autem iusto? Ratione assumenda sunt neque, explicabo minus consectetur harum. Voluptates quis, blanditiis doloribus! Quaerat ducimus magni animi, molestiae voluptatem beatae maxime! Tempora aliquam mollitia autem porro, dicta aut atque ipsa vero omnis. Aperiam, eos pariatur minima, ab mollitia perspiciatis, nostrum asperiores temporibus quibusdam expedita corporis. Eius eos autem, accusantium debitis libero tempora consequatur reprehenderit sint ut mollitia aliquid illo quasi molestias! Temporibus harum voluptatibus omnis, illo ullam? Soluta eius neque numquam quae inventore tenetur voluptatum sapiente voluptatem voluptas quidem similique consequatur rem quam illum itaque debitis natus doloremque, at facere expedita, autem, qui non, nostrum eaque. Explicabo cumque, quidem iste. Vero voluptate id eaque eos magnam nam, dolorem obcaecati tempora numquam, dolorum officiis, reiciendis excepturi, doloribus sed iste temporibus explicabo ducimus magni. Quis inventore unde doloremque ducimus, incidunt enim ipsa tenetur. Est deserunt, quibusdam. Facere earum quidem asperiores a eaque, inventore eveniet. Similique itaque deleniti blanditiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
+                                </h5>
+                            </div>
                         </div>
-                        <button id="passSubmitButton" data-toggle="modal" type="submit" class="btn btn-primary">Open</button>
+                        <div class="overlay"></div>
                     </div>
-                </div>
-
+                    <div class="jumbotron-overlay"></div>
+                </section>
             </div>
-        </section>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+
+            <div style="display: none;" data-page="statistic">
+                <h1>Roulette Statistic</h1>
+                <div id="statistic">
+
+                    <table  class="table">
+                        <thead class="thead-dark">
+                        <!-- <caption style="text-align:left;color: black;font-weight: 800;font-size: 14px;">My savings</caption> -->
+                          
+                          <tr>
+                            <th>Numbers (0 - 36)</th>
+                            <th class="hdStatisticNum">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="fill-numbers">
+                          
+                        
+                        </tbody>
+                    </table>
+                    
             
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Roulette game</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem labore, nulla, commodi perspiciatis vel enim! Consequuntur maiores non aspernatur cum commodi, animi itaque illum suscipit odio nulla beatae ex magni inventore officiis illo placeat dolores ut unde! Ratione nam, beatae cum dolores repellendus iure fugiat mollitia impedit nihil, adipisci amet illo? Deserunt numquam doloribus qui magni sit commodi expedita, perspiciatis ut unde. Dicta iste repellat cupiditate ratione, velit voluptatem ducimus officia hic. Nemo earum dignissimos error perferendis saepe tempore eum, architecto dolorem, maiores commodi voluptatibus, voluptatem molestiae quam atque quod! Aliquid, vel. Id perspiciatis similique, tempore debitis, blanditiis ab adipisci.</p>
-                        <div class="codegena">
-                            <iframe width='500' height='294' src="https://www.youtube.com/embed/q-uWuP_0JO0?&theme=dark&autoplay=1&autohide=2"frameborder="0"></iframe>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+
+                    <table class="table">
+                        <thead class="thead-dark">
+                            
+                          <tr>
+                            <th>Red / Black outcomes</th>
+                            <th class="hdStatisticRedBlack">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="fill-redBlack">
+                         
+                        
+                        </tbody>
+                    </table>
+
+                    <table  class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th> 1 - 19 outcomes * 19 - 36</th>
+                            <th class="hdStatisticTwoG">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="two-group">
+
+                        
+                        </tbody>
+                    </table>
+
+                    <table  class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Odd & Even</th>
+                            <th class="hdStatisticOddEven">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="fill-evenOdd">
+                         
+                          </tr>
+                        
+                        </tbody>
+                    </table>
+
+                    <table  class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Dozen</th>
+                            <th class="hdStatisticDozen">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="dozen-group">
+                          
+                        
+                        </tbody>
+                    </table>
+
+                    <table  class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Columns</th>
+                            <th class="hdStatisticColumn">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="column-group">
+                          
+                        
+                        </tbody>
+                    </table>  
+
+                    <table  class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Six</th>
+                            <th class="hdStatisticSixGro">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="six-group">
+                          
+                        </tbody>
+                    </table>  
+                    
+                    
+                    <table  class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Three</th>
+                            <th class="hdStatisticThreeGro">Statistically expected outcomes</th>
+                            <th class="hdActual">Actual outcomes</th>
+                          </tr>
+                        </thead>
+                        <tbody id="three-group">
+                          
+                        
+                        </tbody>
+                    </table>  
+                    
                 </div>
                 
-            </div>
-        </div>
 
-        <div class="modal fade" id="errorPassword" role="dialog">
-            <div class="modal-dialog">
+            </div>
+
+            <div style="display: none;text-align: center;" data-page="see">
+                <h1>See</h1>
+            </div>
+
+            <div style="display: none;text-align: center;" data-page="download">
+                <h1>Archieve</h1>
+                <h3 class="counts">Download count:<span id="download-count"></span></h3>
+                
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
+                                </h1>
+                                <h5 class="jumbotron-subtitle">
+                                    itiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="jumbotron-overlay"></div>
+                </section>
+                <div id="downDiv">
+                    <button class="btn btn-primary" onClick="downloadcsv()">Download excel file</button>
+                    <select id="selectFruit">
+
+                    </select>
+                </div>
+                
+                </div>
+            </div>
+
+            <div style="display: none;" data-page="info">
+                <h1>Info for Investors</h1>
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Enter Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                </div>
+                                <button id="passSubmitButton" data-toggle="modal" type="submit" class="btn btn-primary">Open</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Roulette game</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem labore, nulla, commodi perspiciatis vel enim! Consequuntur maiores non aspernatur cum commodi, animi itaque illum suscipit odio nulla beatae ex magni inventore officiis illo placeat dolores ut unde! Ratione nam, beatae cum dolores repellendus iure fugiat mollitia impedit nihil, adipisci amet illo? Deserunt numquam doloribus qui magni sit commodi expedita, perspiciatis ut unde. Dicta iste repellat cupiditate ratione, velit voluptatem ducimus officia hic. Nemo earum dignissimos error perferendis saepe tempore eum, architecto dolorem, maiores commodi voluptatibus, voluptatem molestiae quam atque quod! Aliquid, vel. Id perspiciatis similique, tempore debitis, blanditiis ab adipisci.</p>
+                                <div class="codegena">
+                                    <!-- <iframe width='500' height='294' src="https://www.youtube.com/embed/q-uWuP_0JO0?&theme=dark&autoplay=1&autohide=2"frameborder="0"></iframe> -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="modal fade" id="errorPassword" role="dialog">
+                    <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Incorrect password</h4>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="display: none;" data-page="contacts">
+                <h1>Contacts</h1>
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
+                                </h1>
+                                <h5 class="jumbotron-subtitle">
+                                    itiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="jumbotron-overlay"></div>
+                </section>
+            </div>
+
+            <div style="display: none;" data-page="scores">
+
+                <h1>
+                    Player scores
+                </h1>
+
+                <div>
+
+                    <ul id="score-ul">
+                        
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="chat-icon" style="z-index: 999;">
+                <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_1008_316)">
+                    <rect x="10.667" y="6.66666" width="40" height="40" rx="20" fill="#6691FF" fill-opacity="0.8" shape-rendering="crispEdges"/>
+                    <path d="M30.667 14.6667C24.0502 14.6667 18.667 18.9735 18.667 24.2667C18.667 27.7563 20.9446 30.8847 24.667 32.5875V38.6667L31.075 33.8607C37.5034 33.6891 42.667 29.4507 42.667 24.2667C42.667 18.9735 37.2838 14.6667 30.667 14.6667Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <filter id="filter0_d_1008_316" x="0.666992" y="0.666656" width="60" height="60" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="4"/>
+                    <feGaussianBlur stdDeviation="5"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1008_316"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1008_316" result="shape"/>
+                    </filter>
+                    </defs>
+                </svg>
+            </div>
             
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Incorrect password</h4>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                </div>
-            </div>
-        </div>
+            <div class="chat-box" style="z-index: 999;">
 
-    </div>
-
-    <div style="display: none;" data-page="contacts">
-        <h1>Contacts</h1>
-        <section class="jumbotron" style="">
-            <div class="container">
-                <div class="row ">
-                    <div class="col-md  content-wrapper">
-                        <h1 class="jumbotron-title display-1">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
-                        </h1>
-                        <h5 class="jumbotron-subtitle">
-                            itiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
-                        </h5>
-
+                <div class="chat-header">
+                    <span class="chat-title">ROULETTE ROYALl</span>
+                    <div class="close-chat">
+                        <svg width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.765271 0.353894C0.990842 0.12839 1.29674 0.00170898 1.6157 0.00170898C1.93466 0.00170898 2.24056 0.12839 2.46613 0.353894L8.42035 6.30811L14.3746 0.353894C14.6014 0.134781 14.9053 0.0135377 15.2207 0.0162783C15.5361 0.019019 15.8378 0.145524 16.0608 0.368546C16.2838 0.591569 16.4103 0.893264 16.413 1.20865C16.4158 1.52404 16.2945 1.82789 16.0754 2.05475L9.27078 8.8594C9.04521 9.08491 8.73931 9.21159 8.42035 9.21159C8.10139 9.21159 7.79549 9.08491 7.56992 8.8594L0.765271 2.05475C0.539767 1.82918 0.413086 1.52328 0.413086 1.20432C0.413086 0.885365 0.539767 0.579466 0.765271 0.353894Z" fill="white"/>
+                        </svg>
                     </div>
                 </div>
-                <div class="overlay"></div>
-            </div>
-            <div class="jumbotron-overlay"></div>
-        </section>
-    </div>
 
+                <div class="chat-content">
+                <!-- Chat messages go here -->
+                </div>
+
+                <div class="chat-input">
+                    <input type="text" class="rounded-full text-gray-900 px-2 py-4 focus:outline-none border border-green-300" id="message-input" value="something" aria-describedby="Enter your message" placeholder="Enter your message">
+                    <div class="send-button" id="send-button">
+                        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M31.9284 1.37156C32.0011 1.18984 32.0189 0.990769 31.9796 0.799023C31.9403 0.607278 31.8455 0.431292 31.7071 0.292883C31.5687 0.154475 31.3927 0.0597316 31.201 0.020398C31.0092 -0.0189355 30.8102 -0.00112915 30.6284 0.0716097L1.53545 11.7092H1.53345L0.629478 12.0692C0.458264 12.1375 0.30926 12.2518 0.198924 12.3994C0.088588 12.5471 0.0212148 12.7224 0.00424629 12.9059C-0.0127222 13.0895 0.0213745 13.2742 0.10277 13.4395C0.184165 13.6049 0.309692 13.7446 0.465483 13.8431L1.28545 14.3631L1.28745 14.3671L11.2771 20.7229L17.6329 30.7125L17.6369 30.7165L18.1569 31.5365C18.2557 31.6917 18.3955 31.8166 18.5607 31.8975C18.726 31.9784 18.9104 32.0121 19.0936 31.9949C19.2768 31.9778 19.4517 31.9104 19.599 31.8002C19.7464 31.6901 19.8605 31.5414 19.9288 31.3705L31.9284 1.37156ZM28.2625 5.15143L13.275 20.1389L12.8451 19.4629C12.7663 19.3389 12.6611 19.2337 12.5371 19.1549L11.8611 18.725L26.8486 3.73748L29.2045 2.79552L28.2645 5.15143H28.2625Z" fill="#83A5FD"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+            
+
+            <div class="container" id="time-block" style="position: fixed;z-index: 999;left: 16px; bottom: 16px; padding: 2px; padding-left: 8px; padding-right: 8px; background: rgb(1, 114, 1); width:  fit-content; border-radius: 100px; display: none;">
+                <span id="remaining-time" style="color: rgb(255, 255, 255); font-weight: 600;"></span>
+                <span style="color: rgb(255, 255, 255); font-weight: 600;">To Spin</span>
+            </div>
 
           <script>
+
+            let name = 'UserName';
+            let userId = null;
+            let userChannelName;
+            let userChannel;
+            let chatHistory = {
+                userId : '',
+                chat : []
+            };
+
+            let statistic01 = {};
+            let statistic02 = {};
+
+            let totalSpin = 0;
 
             function getCookie(cname) {
                 console.log('tto getCookie->document.cookies: ', document.cookie);
@@ -282,6 +760,729 @@
                 }
                 return undefined;
             };
+
+            var pusher = new Pusher('4602e4b9be6037f45b0e', {
+                        cluster: 'ap1',
+                        authEndpoint: '/api/pusher/auth',
+                        auth: {
+                                headers: {
+                                    'x-access-token': getCookie('token')
+                                }
+                            },
+                        forceTLS: true
+                        });
+
+            function CheckIfAuth(){
+                $.ajax({
+                    url: "/api/check",
+                    headers: {
+                        'x-access-token': getCookie('token')
+                    }
+                }).done(function(res) {
+                    console.log(res);
+
+                }).fail(function(err){
+                    // if(err.status == 403){
+                    //     console.warn('ABORT!!');
+                    //     var r = confirm('Please login or signup');
+                    //     if (r == true) {
+                    //         window.location= '/login';
+                    //     } else {
+                    //         // txt = "You pressed Cancel!";
+                    //     }
+                    // }
+                });
+            }
+
+            $(document).ready(function () { 
+                $(".chat-icon").click(function () {
+                    $(".chat-box").slideToggle();
+                });
+
+                $(".close-chat").click(function () {
+                    $(".chat-box").slideToggle();
+                });
+
+                $.ajax({
+                    type : 'GET',
+                    url : '/totalSpin',
+                    headers: {
+                        'x-access-token': getCookie('token')
+                    }
+                }).done (function (data) {
+                    totalSpin = data.totalSpin;
+                    getUsers();
+
+                    fetchStatistic();
+                }).fail(function (error) {
+                    console.log(error);
+                })
+
+            });
+
+            $(document).ready(function() {
+
+                $("#selectFruit").change(function () {
+                    // Get the selected value
+                    var selectedValue = $(this).val();
+                    window.open(`/csv?fileName=${selectedValue}`);
+                    // Display the selected value
+                    $("#selectedFruit").text(selectedValue);
+                });
+
+                
+
+                // Make an AJAX GET request to fetch the data from the server
+                $.ajax({
+                    type: 'GET',
+                    url: '/uniqueYearMonth', // Replace with your server route
+                    dataType: 'json',
+                    headers: {
+                        'x-access-token': getCookie('token')
+                    }  // Expect JSON response
+                })
+                .done(function(data) {
+                    // 'data' should be an array of unique year and month combinations
+
+                    // Select the <select> element by its ID
+                    const selectElement = $('#selectFruit');
+
+                    // Loop through the data and append options to the select element
+                    data.forEach(function(yearMonth) {
+                        const option = $('<option>');
+                        option.attr('value', yearMonth);
+                        option.text(yearMonth);
+
+                        // Append the option to the select element
+                        selectElement.append(option);
+                    });
+                })
+                .fail(function(err) {
+                    console.error('Error fetching data:', err);
+                });
+
+
+                
+                $('#send-button').click(function() {
+                    const messageText = $('#message-input').val();
+                    console.log(messageText);
+                    console.log('messageText: ', messageText);
+                    if (messageText) {
+                        pushMessage(messageText, name);
+                        userChannel.trigger('client-message', 
+                        {
+                            text : messageText,
+                            senderId : userId,
+                            receiverId : '65360b47873890cc0e53f811',
+                            time : new Date()
+                        });
+
+                        chatHistory.chat.push({
+                            senderId: userId,
+                            receiverId: '65360b47873890cc0e53f811',
+                            text: messageText,
+                            time : new Date()
+                        })
+
+                        const message = {
+                            senderId: userId,
+                            receiverId: '65360b47873890cc0e53f811',
+                            text: messageText,
+                            time : new Date()
+                        };
+
+                        $.ajax({
+                            type : 'POST',
+                            url : '/api/message',
+                            data : JSON.stringify(message),
+                            contentType: 'application/json',
+                            headers: {
+                                'x-access-token': getCookie('token')
+                            } 
+                        }).then(res => {
+                            console.log(res.message);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }
+                });
+            });
+
+            function displayUsersScores(users) {
+
+                users.forEach((user, i) => {
+
+                    const li = $('<li class="text-center score-li"></li>');
+
+
+                    const rankSpan = $('<span></span>').text(i + 1 + "#");
+                    const nameSpan = $('<span></span>').text(user.name);
+                    const balanceSpan = $('<span></span>').text('Balance ' + user.credit);
+
+                    
+
+                    li.append(rankSpan, nameSpan, balanceSpan);
+
+                    if (i === 0) {
+                        const trophy = $('<img />')
+                        trophy.attr('src', '../trophy.svg');
+                        li.append(trophy);
+                    }
+
+                    $('#score-ul').append(li);
+
+                })
+            }
+
+            async function getUsers () {
+                    $.ajax({
+                        type : 'GET',
+                        url : '/users',
+                        headers : {
+                            'x-access-token': getCookie('token')
+                        },          
+                    }).done(function (data) {
+
+                        displayUsersScores(data.users)
+                        
+                    }).fail(function (err) {
+                        console.error(err);
+                    });
+
+                }
+
+            async function fetchStatistic () {
+
+                $.ajax({
+                    type : 'GET',
+                    url : '/getStatistic',
+                    headers: {
+                        'x-access-token': getCookie('token')
+                    }  // Expect JSON response
+                }).done(function (data) {
+                    console.log('fetching statistic ok');
+                    statistic01 = data.result[0];
+                    fillNumber(statistic01.counts);
+                    fillRedBlack(statistic01.red_count, statistic01.black_count);
+                    fillEvenOdd(statistic01.even_count, statistic01.odd_count);
+
+                }).fail(function (err) {
+                    console.log(err);
+                })
+
+                $.ajax({
+                    type : 'GET',
+                    url : '/getStatisticSec',
+                    headers: {
+                        'x-access-token': getCookie('token')
+                    }  // Expect JSON response
+                }).done(function (data) {
+                    statistic02 = data.result[0];
+                    filltwoGroup(statistic02.count_1_to_18, statistic02.count_19_to_36);
+                    fillDozen(statistic02.count_first_column, statistic02.count_second_column, statistic02.count_third_column);
+                    fillColumn(statistic02.count_first_dozen, statistic02.count_second_dozen, statistic02.count_third_dozen);
+                    fillSixGroup(statistic02.count_six_group1, statistic02.count_six_group2, statistic02.count_six_group3, statistic02.count_six_group4, statistic02.count_six_group5, statistic02.count_six_group6);
+                    fillThreeGroup(statistic02.count_three_group1, 
+                    statistic02.count_three_group2, 
+                    statistic02.count_three_group3,
+                    statistic02.count_three_group4,
+                    statistic02.count_three_group5,
+                    statistic02.count_three_group6,
+                    statistic02.count_three_group7,
+                    statistic02.count_three_group8,
+                    statistic02.count_three_group9,
+                    statistic02.count_three_group10,
+                    statistic02.count_three_group11,
+                    statistic02.count_three_group12);
+                    $('.hdActual').text(`Actual outcomes, Total Spin = ${totalSpin}`)
+                }).fail(function (err) {
+                    console.log(err);
+                })
+            }
+
+            function fillNumber(counts) {
+
+                let mostExp = 0;
+                let lestEpx = 1000000;
+                counts.forEach(count => {
+                    if (count.count >= mostExp) {
+                        mostExp = count.count;
+                    }
+
+                    if (count.count <= lestEpx) {
+                        lestEpx = count.count;
+                    }
+                })
+
+                counts.forEach(count => {
+
+                    const firstCol = $('<td></td>').text(count._id);
+
+                    console.log('total spin: ', totalSpin);
+
+                    const formulaRes = Math.floor(Number(totalSpin) / 37);
+                  
+                    $('.hdStatisticNum').text(`Statistically expected outcomes (n / 37) n:${totalSpin}`);
+
+                    const secondCol = $('<td></td>').text(formulaRes);
+
+                    let thirdCol;
+                    if (count.count === mostExp) {
+                        thirdCol = $('<td class="lessExp"></td>').text(count.count + ' (least expected)');
+                    } else if (count.count === lestEpx) {
+                        thirdCol = $('<td class="mostExp"></td>').text(count.count + ' (most expected)');
+                    } else {
+                        thirdCol = $('<td></td>').text(count.count);
+                    }
+
+
+                    const tr = $('<tr></tr>');
+                    tr.append(firstCol, secondCol, thirdCol);
+                    $('#fill-numbers').append(tr);
+
+                })
+
+            }
+
+            function fillEvenOdd(even_count, odd_count) {
+                    const firstEveCol = $('<td></td>').text('Even');
+          
+                    const formulaEveRes = Math.floor((Number(totalSpin) * 18) / 37);
+                
+                    const secondEveCol = $('<td></td>').text(formulaEveRes);
+                    const thirdEveCol = $('<td></td>').text(even_count + (even_count > odd_count ? ' ( least expected)' : ' ( most expected)'));
+                    if (even_count > odd_count) {
+                        thirdEveCol.addClass('lessExp');
+                    } else {
+                        thirdEveCol.addClass('mostExp');
+                    }
+                    $('.hdStatisticOddEven').text(`Statistically expected outcomes (n * 18) / 37, n:${totalSpin}`);
+                    const eveTr = $('<tr></tr>');
+                    eveTr.append(firstEveCol, secondEveCol, thirdEveCol);
+                    $('#fill-evenOdd').append(eveTr);
+
+                    const firstOddCol = $('<td></td>').text('Odd');
+                   
+                    const formulaOddRes = Math.floor((Number(totalSpin) * 18) / 37);
+                  
+                    const secondOddCol = $('<td></td>').text(formulaOddRes);
+                    const thirdOddCol = $('<td></td>').text(odd_count + (even_count < odd_count ? ' ( least expected)' : ' ( most expected)'));
+                    if (even_count < odd_count) {
+                        thirdOddCol.addClass('lessExp');
+                    } else {
+                        thirdOddCol.addClass('mostExp');
+                    }
+                    const oddTr = $('<tr></tr>');
+                    oddTr.append(firstOddCol, secondOddCol, thirdOddCol);
+                    $('#fill-evenOdd').append(oddTr);
+            }
+
+            function filltwoGroup(count_1_18, count_19_36) {
+                const first118Col = $('<td></td>').text('1 - 18');
+          
+                const formula118Res = Math.floor((Number(totalSpin)) / 18);
+            
+                const second118Col = $('<td></td>').text(formula118Res);
+                const third118Col = $('<td></td>').text(count_1_18 + (count_1_18 > count_19_36 ? ' ( least expected)' : ' ( most expected)'));
+
+                if (count_1_18 > count_19_36) {
+                    third118Col.addClass('lessExp');
+                } else {
+                    third118Col.addClass('mostExp');
+                }
+
+                $('.hdStatisticTwoG').text(`Statistically expected outcomes n / 18, n:${totalSpin}`);
+
+                const two118Tr = $('<tr></tr>');
+                two118Tr.append(first118Col, second118Col, third118Col);
+                $('#two-group').append(two118Tr);
+
+                const first1936Col = $('<td></td>').text('19 - 36');
+                
+                const formula1936Res = Math.floor((Number(totalSpin) * 18) / 37);
+                
+                const second1936Col = $('<td></td>').text(formula1936Res);
+                const third1936Col = $('<td></td>').text(count_19_36 + (count_1_18 < count_19_36 ? ' ( least expected)' : ' ( most expected)'));
+                if (count_1_18 < count_19_36) {
+                    third1936Col.addClass('lessExp');
+                } else {
+                    third1936Col.addClass('mostExp');
+                }
+                const two1936Tr = $('<tr></tr>');
+                two1936Tr.append(first1936Col, second1936Col, third1936Col);
+                $('#two-group').append(two1936Tr);
+            }
+
+            function fillRedBlack(red_count, black_count) {
+                
+                    const firstRedCol = $('<td></td>').text('Red');
+          
+                    const formulaRedRes = Math.floor((Number(totalSpin) * 18) / 37);
+                
+                    const secondRedCol = $('<td></td>').text(formulaRedRes);
+                    const thirdRedCol = $('<td></td>').text(red_count + (black_count < red_count ? ' ( least expected)' : ' ( most expected)'));
+
+                    if (black_count < red_count) {
+                        thirdRedCol.addClass('lessExp');
+                    } else {
+                        thirdRedCol.addClass('mostExp');
+                    }
+
+                    $('.hdStatisticRedBlack').text(`Statistically expected outcomes (n * 18) / 37, n:${totalSpin}`);
+                    const redTr = $('<tr></tr>');
+                    redTr.append(firstRedCol, secondRedCol, thirdRedCol);
+                    $('#fill-redBlack').append(redTr);
+
+                    const firstBlaCol = $('<td></td>').text('Black');
+                   
+                    const formulaBlaRes = Math.floor((Number(totalSpin) * 18) / 37);
+                  
+                    const secondBlaCol = $('<td></td>').text(formulaBlaRes);
+                    const thirdBlaCol = $('<td></td>').text(black_count + (black_count > red_count ? ' ( least expected)' : ' ( most expected)'));
+
+                    if (black_count > red_count) {
+                        thirdBlaCol.addClass('lessExp');
+                    } else {
+                        thirdBlaCol.addClass('mostExp');
+                    }
+                    const blaTr = $('<tr></tr>');
+                    blaTr.append(firstBlaCol, secondBlaCol, thirdBlaCol);
+                    $('#fill-redBlack').append(blaTr);
+            }
+
+            function fillDozen(first_dozen_count, second_dozen_count, third_dozen_count) {
+
+                let largest = first_dozen_count; // Assume the first argument is the largest
+                let smallest = first_dozen_count; // Assume the first argument is the smallest
+
+                if (second_dozen_count > largest) {
+                    largest = second_dozen_count; // If the second argument is larger, update 'largest'
+                } else if (second_dozen_count < smallest) {
+                    smallest = second_dozen_count; // If the second argument is smaller, update 'smallest'
+                }
+
+                if (third_dozen_count > largest) {
+                    largest = third_dozen_count; // If the third argument is larger, update 'largest'
+                } else if (third_dozen_count < smallest) {
+                    smallest = third_dozen_count; // If the third argument is smaller, update 'smallest'
+                } 
+
+                console.log('second_dozen_count === largest: ', second_dozen_count === largest);
+                console.log('second_dozen_count === smallest: ', second_dozen_count === smallest);
+                
+                const firstDoz01Col = $('<td></td>').text('First');
+          
+                    const formulaDoz01Res = Math.floor((Number(totalSpin) * 12) / 37);
+                    let thirdDoz01Col;
+                    const secondDoz01Col = $('<td></td>').text(formulaDoz01Res);
+                    if (first_dozen_count === largest) {
+                        thirdDoz01Col = $('<td class="lessExp"></td>').text(first_dozen_count + ' (  least expected)');
+                    } else if (first_dozen_count === smallest) {
+                        thirdDoz01Col = $('<td class="mostExp"></td>').text(first_dozen_count + ' ( most expected)');
+                    } else {
+                        thirdDoz01Col = $('<td></td>').text(first_dozen_count);
+                    }
+                    $('.hdStatisticDozen').text(`Statistically expected outcomes (n * 12) / 37, n:${totalSpin}`);
+                    const d1Tr = $('<tr></tr>');
+                    d1Tr.append(firstDoz01Col, secondDoz01Col, thirdDoz01Col);
+                    $('#dozen-group').append(d1Tr);
+
+                    const firstDoz02Col = $('<td></td>').text('Second');
+                   
+                    const formulaDoz02Res = Math.floor((Number(totalSpin) * 12) / 37);
+                  
+                    const secondDoz02Col = $('<td></td>').text(formulaDoz02Res);
+                    let thirdDoz02Col;
+                    if (second_dozen_count === largest) {
+                        thirdDoz02Col = $('<td class="lessExp"></td>').text(second_dozen_count + ' ( least expected)');
+                    } else if (second_dozen_count === smallest) {
+                        thirdDoz02Col = $('<td class="mostExp"></td>').text(second_dozen_count + ' ( most expected)');
+                    } else {
+                        thirdDoz02Col = $('<td></td>').text(second_dozen_count);
+                    }
+
+                    const d2Tr = $('<tr></tr>');
+                    d2Tr.append(firstDoz02Col, secondDoz02Col, thirdDoz02Col);
+                    $('#dozen-group').append(d2Tr);
+
+                    const firstDoz03Col = $('<td></td>').text('Third');
+                   
+                    const formulaDoz03Res = Math.floor((Number(totalSpin) * 12) / 37);
+                  
+                    const secondDoz03Col = $('<td></td>').text(formulaDoz03Res);
+                    let thirdDoz03Col;
+                    if (third_dozen_count === largest) {
+                        thirdDoz03Col = $('<td class="lessExp"></td>').text(third_dozen_count + ' ( least expected)');
+                    } else if (third_dozen_count === smallest) {
+                        thirdDoz03Col = $('<td class="mostExp"></td>').text(third_dozen_count + ' ( most expected)');
+                    } else {
+                        thirdDoz03Col = $('<td></td>').text(third_dozen_count);
+                    }
+
+                    const d3Tr = $('<tr></tr>');
+                    d3Tr.append(firstDoz03Col, secondDoz03Col, thirdDoz03Col);
+                    $('#dozen-group').append(d3Tr);
+            }
+
+            function fillColumn(first_col_count, second_col_count, third_col_count) {
+                let largest = first_col_count; // Assume the first argument is the largest
+                let smallest = first_col_count; // Assume the first argument is the smallest
+
+                if (second_col_count > largest) {
+                    largest = second_col_count; // If the second argument is larger, update 'largest'
+                } else if (second_col_count < smallest) {
+                    smallest = second_col_count; // If the second argument is smaller, update 'smallest'
+                }
+
+                if (third_col_count > largest) {
+                    largest = third_col_count; // If the third argument is larger, update 'largest'
+                } else if (third_col_count < smallest) {
+                    smallest = third_col_count; // If the third argument is smaller, update 'smallest'
+                } 
+                
+                const firstCol01Col = $('<td></td>').text('Column One');
+          
+                    const formulaCol01Res = Math.floor((Number(totalSpin) * 12) / 37);
+                
+                    const secondCol01Col = $('<td></td>').text(formulaCol01Res);
+
+                    let thirdCol01Col;
+                    if (first_col_count === largest) {
+                        thirdCol01Col = $('<td class="lessExp"></td>').text(first_col_count + ' ( least expected)');
+                    } else if (first_col_count === smallest) {
+                        thirdCol01Col = $('<td class="mostExp"></td>').text(first_col_count + ' ( most expected)');
+                    } else {
+                        thirdCol01Col = $('<td></td>').text(first_col_count);
+                    }
+
+
+                    const col1Tr = $('<tr></tr>');
+                    col1Tr.append(firstCol01Col, secondCol01Col, thirdCol01Col);
+                    $('#column-group').append(col1Tr);
+
+                    const firstCol02Col = $('<td></td>').text('Column Two');
+                   
+                    const formulaCol02Res = Math.floor((Number(totalSpin) * 12) / 37);
+                    $('.hdStatisticColumn').text(`Statistically expected outcomes (n * 12) / 37, n:${totalSpin}`);
+                    const secondCol02Col = $('<td></td>').text(formulaCol02Res);
+
+                    let thirdCol02Col;
+                    if (second_col_count === largest) {
+                        thirdCol02Col = $('<td class="lessExp"></td>').text(second_col_count + ' ( least expected)');
+                    } else if (second_col_count === smallest) {
+                        thirdCol02Col = $('<td class="mostExp"> </td>').text(second_col_count + ' ( most expected)');
+                    } else {
+                        thirdCol02Col = $('<td></td>').text(second_col_count);
+                    }
+
+
+                    const col2Tr = $('<tr></tr>');
+                    col2Tr.append(firstCol02Col, secondCol02Col, thirdCol02Col);
+                    $('#column-group').append(col2Tr);
+
+                    const firstCol03Col = $('<td></td>').text('Column Three');
+                   
+                    const formulaCol03Res = Math.floor((Number(totalSpin) * 12) / 37);
+                  
+                    const secondCol03Col = $('<td></td>').text(formulaCol03Res);
+
+                    let thirdCol03Col;
+                    if (third_col_count === largest) {
+                        thirdCol03Col = $('<td class="lessExp"></td>').text(third_col_count + ' ( least expected)');
+                    } else if (third_col_count === smallest) {
+                        thirdCol03Col = $('<td class="mostExp"></td>').text(third_col_count + ' ( most expected)');
+                    } else {
+                        thirdCol03Col = $('<td></td>').text(third_col_count);
+                    }
+
+
+                    const col3Tr = $('<tr></tr>');
+                    col3Tr.append(firstCol03Col, secondCol03Col, thirdCol03Col);
+                    $('#column-group').append(col3Tr);
+            }
+
+
+            function fillSixGroup(sg1, sg2, sg3, sg4, sg5, sg6) {
+
+                const countArr = [sg1, sg2, sg3,  sg4, sg5, sg6];
+                let largest = Math.max(...countArr);
+                let smallest = Math.min(...countArr);
+
+                countArr.forEach((count, i) => {
+                    let first_cell = '';
+                    switch (i) {
+                        case 0:
+                            first_cell = '1 - 6';
+                            break;
+                        case 1:
+                            first_cell = '7 - 12';
+                            break;
+                        case 2:
+                            first_cell = '13 - 18';
+                            break;
+                        case 3:
+                            first_cell = '19 - 24';
+                            break;
+                        case 4:
+                            first_cell = '25 - 30';
+                            break;
+                        case 5:
+                            first_cell = '31 - 36';
+                    }
+                    // 
+                    $('.hdStatisticSixGro').text(`Statistically expected outcomes (n * 6) / 37, n:${totalSpin}`);
+                    const firstSix01Col = $('<td></td>').text(first_cell);
+          
+                    const formulaSix01Res = Math.floor((Number(totalSpin) * 6) / 37);
+                
+                    const secondSix01Col = $('<td></td>').text(formulaSix01Res);
+                    let thirdSix01Col;
+                    if (count === largest) {
+                        thirdSix01Col = $('<td class="lessExp"></td>').text(count + ' ( least expected)');
+                    } else if (count === smallest) {
+                        thirdSix01Col = $('<td class="mostExp"></td>').text(count + ' ( most expected)');
+                    } else {
+                        thirdSix01Col = $('<td></td>').text(count);
+                    }
+
+
+                    const six1Tr = $('<tr></tr>');
+                    six1Tr.append(firstSix01Col, secondSix01Col, thirdSix01Col);
+                    $('#six-group').append(six1Tr);
+                })
+                    
+
+                    
+            }
+
+            function fillThreeGroup(tg1, tg2, tg3, tg4, tg5, tg6, tg7, tg8, tg9, tg10, tg11, tg12) {
+
+                const countArr = [tg1, tg2, tg3, tg4, tg5, tg6, tg7, tg8, tg9, tg10, tg11, tg12];
+
+                let largest = Math.max(...countArr);
+                let smallest = Math.min(...countArr);
+                countArr.forEach((count, i) => {
+                    let first_cell = '';
+                    switch (i) {
+                        case 0:
+                            first_cell = '1 - 3';
+                            break;
+                        case 1:
+                            first_cell = '4 - 6';
+                            break;
+                        case 2:
+                            first_cell = '7 - 9';
+                            break;
+                        case 3:
+                            first_cell = '10 - 12';
+                            break;
+                        case 4:
+                            first_cell = '13 - 15';
+                            break;
+                        case 5:
+                            first_cell = '16 - 18';
+                        case 6:
+                            first_cell = '19 - 21';
+                            break;
+                        case 7:
+                            first_cell = '22 - 24';
+                            break;
+                        case 8:
+                            first_cell = '25 - 27';
+                            break;
+                        case 9:
+                            first_cell = '28 - 30';
+                            break;
+                        case 10:
+                            first_cell = '31 - 33';
+                            break;
+                        case 11:
+                            first_cell = '34 - 36';
+                    }
+                    const firstSix01Col = $('<td></td>').text(first_cell);
+                    $('.hdStatisticThreeGro').text(`Statistically expected outcomes (n * 3) / 37, n:${totalSpin}`);
+                    const formulaSix01Res = Math.floor((Number(totalSpin) * 3) / 37);
+                    $('.hdStatisticSix').text(`Statistically expected outcomes (n * 12) / 37, n:${totalSpin}`);
+                    const secondSix01Col = $('<td></td>').text(formulaSix01Res);
+                    
+                    let thirdSix01Col;
+                    if (count === largest) {
+                        thirdSix01Col = $('<td class="lessExp"></td>').text(count + ' ( least expected)');
+                    } else if (count === smallest) {
+                        thirdSix01Col = $('<td class="mostExp"></td>').text(count + ' ( most expected)');
+                    } else {
+                        thirdSix01Col = $('<td></td>').text(count);
+                    }
+
+
+                    const six1Tr = $('<tr></tr>');
+                    six1Tr.append(firstSix01Col, secondSix01Col, thirdSix01Col);
+                    $('#three-group').append(six1Tr);
+                })
+                    
+
+                    
+            }
+
+            function pushMessage(text, name, chatTime = new Date()) {
+                const message = $('<div class="message"></div>');
+
+                const upperDiv = $('<div class="upper"></div>');
+
+                // Create a profile icon element
+                const profileIcon = $('<div class="profile-icon"><svg width="24" height="24" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.66699 2.26665C7.5476 2.26645 6.44773 2.55984 5.47717 3.11756C4.5066 3.67527 3.69929 4.47779 3.13581 5.44501C2.57233 6.41224 2.27239 7.51034 2.26593 8.62971C2.25947 9.74909 2.54672 10.8506 3.099 11.8242C3.47229 11.3391 3.95214 10.9463 4.50147 10.6762C5.05079 10.4061 5.65487 10.266 6.26699 10.2666H11.067C11.6791 10.266 12.2832 10.4061 12.8325 10.6762C13.3818 10.9463 13.8617 11.3391 14.235 11.8242C14.7873 10.8506 15.0745 9.74909 15.0681 8.62971C15.0616 7.51034 14.7617 6.41224 14.1982 5.44501C13.6347 4.47779 12.8274 3.67527 11.8568 3.11756C10.8863 2.55984 9.78638 2.26645 8.66699 2.26665ZM15.0214 13.5274C16.091 12.133 16.6696 10.4241 16.667 8.66665C16.667 4.24825 13.0854 0.666656 8.66699 0.666656C4.2486 0.666656 0.667001 4.24825 0.667001 8.66665C0.66436 10.4241 1.24292 12.133 2.3126 13.5274L2.3086 13.5418L2.5926 13.8722C3.34291 14.7494 4.2745 15.4535 5.32318 15.936C6.37186 16.4184 7.51267 16.6677 8.66699 16.6666C10.2889 16.6696 11.8729 16.177 13.207 15.2546C13.7757 14.8617 14.2914 14.3971 14.7414 13.8722L15.0254 13.5418L15.0214 13.5274ZM8.66699 3.86665C8.03047 3.86665 7.42002 4.11951 6.96994 4.5696C6.51985 5.01968 6.26699 5.63013 6.26699 6.26665C6.26699 6.90317 6.51985 7.51362 6.96994 7.9637C7.42002 8.41379 8.03047 8.66665 8.66699 8.66665C9.30351 8.66665 9.91396 8.41379 10.364 7.9637C10.8141 7.51362 11.067 6.90317 11.067 6.26665C11.067 5.63013 10.8141 5.01968 10.364 4.5696C9.91396 4.11951 9.30351 3.86665 8.66699 3.86665Z" fill="#C7BFBF"/></svg></div>');
+
+                // Create a message text element
+                const textdiv = $('<div class="text"></div>').text(text);
+
+                const userName = $('<span class="name" id="name"></span>').text(name);
+
+                const time = $('<span class="time"></span>').text(chatTime);
+
+                upperDiv.append(profileIcon, userName);
+
+                // Append the profile icon and message text to the message element
+                message.append(upperDiv, textdiv, time);
+
+                // Append the message element to the chat content
+                $('.chat-content').append(message);
+
+                // Clear the input field
+                $('#message-input').val('');
+            }
+
+      
+
+            function formatAMPM(date) {
+                const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                
+                const dayOfWeek = daysOfWeek[date.getDay()];
+                const month = months[date.getMonth()];
+                const day = date.getDate();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                
+                // Determine whether it's AM or PM
+                const ampm = hours >= 12 ? "PM" : "AM";
+                
+                // Convert 24-hour time to 12-hour time
+                if (hours > 12) {
+                    hours -= 12;
+                }
+                
+                // Ensure single-digit hours are formatted correctly (e.g., "1:38" instead of "01:38")
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                
+                // Ensure single-digit minutes are formatted correctly
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                
+                return `${dayOfWeek} ${month} ${day} ${hours}:${minutes} ${ampm}`;
+            }
 
             function downloadcsv(){
                 // window.open('/api/csv?token=' + getCookie('token'));
@@ -297,6 +1498,7 @@
                 //     console.log(err);
                 // });
             }
+
             function storeLog(name){
                 $.ajax({
                     url: "/game/count",
@@ -310,7 +1512,6 @@
                     console.log(err);
                 });
             }
-
             function getCounts(){
                 $.ajax({
                     url: "/game/count?name=[\"download\",\"aboutus\"]",
@@ -324,22 +1525,37 @@
                     console.log(err);
                 });
             }
+            function getRemainingTime() {
+                $.ajax({
+                    url : "/game/getRemainTime"
+                }).done(function (res) {
+                    if (res.success) {
+                        console.warn('remainingTime request: ', res);
+                        if (res.remainingTime) {
+                            jQuery('#time-block').show();
+                            $('#remaining-time').text(res.remainingTime);
+                        }
 
-            function showOrHideGame(attr){
+                    }
+                })
+            }
+            function showOrHideGame(attr) {
                 getCounts();
                 if(attr == 'play'){
-                    // CheckIfAuth();
+                    CheckIfAuth();
                     // console.log('tto: showOrHideGame()->getUserData()');
                     getUserData();
                     jQuery('#canvas').show();
                 }
                 else jQuery('#canvas').hide();
                 jQuery('[data-page]').hide();
+                jQuery('#time-block').hide();
                 jQuery('[data-page="' + attr +'"]').show();
                 if(attr == 'aboutus'){
                     storeLog('aboutus');
                 }
             }
+            
             jQuery('#nav-buttons li').each(function(itr, li){
                 jQuery(li).click(function(){
                         showOrHideGame(jQuery(li).attr('data-action'))
@@ -348,7 +1564,7 @@
                 });
             });
 
-            showOrHideGame('aboutus');
+            showOrHideGame('play');
 
             var initializeGame = function(credit,extractHistory){
                 $(document).ready(function(){
@@ -377,12 +1593,15 @@
                          
                          $(oMain).on("recharge", function(evt) {
                                  //alert("recharge");
+                                 alert('recharge: ', evt);
                          });
                          
                          $(oMain).on("start_session", function(evt) {
                                 if(getParamValue('ctl-arcade') === "true"){
                                     parent.__ctlArcadeStartSession();
                                 }
+
+                                console.log('start_session: ', evt);
                                 //...ADD YOUR CODE HERE EVENTUALLY
                          });
                          
@@ -390,6 +1609,8 @@
                                 if(getParamValue('ctl-arcade') === "true"){
                                     parent.__ctlArcadeEndSession();
                                 }
+
+                                console.log('end_session end: ', evt);
                                 //...ADD YOUR CODE HERE EVENTUALLY
                         });
                         
@@ -402,6 +1623,8 @@
                                 if(getParamValue('ctl-arcade') === "true"){
                                     parent.__ctlArcadeSaveScore({score:iMoney});
                                 }
+
+                                console.log('saveScore: ', evt, iMoney);
                                 //...ADD YOUR CODE HERE EVENTUALLY
                          });
                          
@@ -431,6 +1654,44 @@
                 });
             }
 
+            function fetchChatHistory (userId) {
+
+                const payload = {
+                        senderId : '65360b47873890cc0e53f811',
+                        receiverId : userId
+                    };
+
+                    $.ajax({
+                        type : 'GET',
+                        url : 'chatHistory',
+                        headers : {
+                            'x-access-token': getCookie('token')
+                        },
+                        contentType: 'application/json',
+                        data : {
+                            payload : JSON.stringify(payload), 
+                        } 
+                    }).done(function (data) {
+
+                        chatHistory = {
+                            userId : userId,
+                            chat : data.message
+                        };
+
+                        chatHistory.chat.forEach(cha => {
+                            if (cha.sender === '65360b47873890cc0e53f811') {
+                                pushMessage(cha.text, 'Admin', formatAMPM(new Date(cha.timestamp)));
+                            } else {
+                                pushMessage(cha.text, name, formatAMPM(new Date(cha.timestamp)));
+                            }
+
+                        })
+
+                    }).fail(function (err) {
+                        console.log('fetchChatHis fail: ', err);
+                    });
+                }
+
 
             // get user data 
             // OK initializeGame
@@ -439,20 +1700,31 @@
 
             function getUserData(){
 
-                console.log('tto getCookie(): ', getCookie('token'));
-
                 $.ajax({
                     url: "/api/game/user",
                     headers: {
                         'x-access-token': getCookie('token')
                     }
                 }).done(function(res) {
-                    console.log('tto cookie ok user found');
+                    console.log('get user ok');
                    if(res.success) {
                         initializeGame((res.credit) ? res.credit : 1000, res.history);
+                        name = res.userName;
+                        userId = res.userId;
+                        
+                        fetchChatHistory(userId);
+
+                        userChannelName = `private-user-${userId}`;
+                        userChannel = pusher.subscribe(userChannelName);
+
+                        userChannel.bind(`client-message`, function (data) {
+                            pushMessage(data.text, 'Admin');
+                        })
+
                     }
                 }).fail(function(err){
-                    console.log('tto cookie not ok, new credit');
+                    console.log('tto cookie not ok, new credit changed');
+                    console.log('get user not ok');
                     console.log(err);
                     $.ajax({
                         url: "/game/history",
@@ -461,22 +1733,25 @@
                         }
                     }).done(function(res) {
                         console.log(res);
+                        console.log('fetch history ok');
                        if(res.success) {
                             initializeGame(1000, res.history);
                         }
                     }).fail(function(err){
+                        console.log('fetch history not ok');
                         console.log(err);
                     });
                 });
             }
-
         </script>
-        <canvas id="canvas" class='ani_hack' width="1280" height="768"> </canvas>
+
+        <canvas id="canvas" class='ani_hack' width="1280" height="768" class="">
+            
+        </canvas>
         <div data-orientation="landscape" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your device</p></div>
         <div id="block_games" style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%; display:none"></div>
+       
         <script>
-
-            
             function CheckIfAuth(){
                 $.ajax({
                     url: "/api/check",
@@ -487,13 +1762,13 @@
                     console.log(res);
                 }).fail(function(err){
                     if(err.status == 403){
-                        console.warn('ABORT!!');
-                        var r = confirm('Please login or signup');
-                        if (r == true) {
-                            window.location= '/login';
-                        } else {
-                            // txt = "You pressed Cancel!";
-                        }
+                        // console.warn('ABORT!!');
+                        // var r = confirm('Please login or signup');
+                        // if (r == true) {
+                        //     window.location= '/login';
+                        // } else {
+                        //     // txt = "You pressed Cancel!";
+                        // }
                     }
                 });
             }
@@ -504,27 +1779,34 @@
             //   cluster: 'ap2',
             //   forceTLS: true
             // });
-            var pusher = new Pusher('e59099f1080388ad9ae4', {
-              cluster: 'ap2',
-              // authEndpoint: '/api/pusher/auth',
-              // auth: {
-              //       headers: {
-              //           'x-access-token': window.location.search.replace('?token=', '')
-              //       }
-              //   },
-              // forceTLS: true
-            });
 
-            console.log(pusher);
+
+
+
+            // console.log('tto pusher: ', pusher);
+
+            pusher.connection.bind('state_change', function (states) {
+                console.log('tto pusher conection: ', states);
+                if (states.current === 'connected') {
+                    console.log('tto pusher connected');
+                }
+            }) 
 
 
             var channel = pusher.subscribe('my-channel');
 
+
             // channel.bind('my-event', function(data) {
+            //     console.log('pusher event:', data);
             //   alert(JSON.stringify(data));
             //   // window.SPIN();
-            //   CInterface()._onSpin()
+            // //   CInterface()._onSpin()
             // });
+
+            channel.bind('remaining-time-event', function (data) {
+                jQuery('#time-block').show();
+                $('#remaining-time').text(data.remainingTime);
+            })
 
             $('button[id="passSubmitButton"]').on('click', function (ev) {
                 ev.preventDefault();
@@ -539,7 +1821,6 @@
             $("#myModal,#errorPassword").on('hidden.bs.modal', function(){
                 document.getElementById('exampleInputPassword1').value = '';
             })
-
         </script>
     </body>
 </html>

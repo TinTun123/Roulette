@@ -171,8 +171,9 @@
 	</style>
 </head>
 <body>
+
 	<div class="form">
-			
+
 		<ul class="tab-group">
 			<li class="tab active"><a href="#login">Log In</a></li>
 			<li class="tab"><a href="#signup">Sign Up</a></li>
@@ -267,11 +268,13 @@
 	                    equalTo: "#password"
 	                }
 	            },
+				
 	            messages: {
 	                password: " Enter Password",
 	                confirmpassword: " Enter Confirm Password Same as Password"
 	            }
 	        });
+
 	        if (validator.form()) {
 	            // alert('Sucess');
 	            // $("#signupform").submit();

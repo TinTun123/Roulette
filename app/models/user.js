@@ -7,7 +7,15 @@ module.exports = mongoose.model('User', new Schema({
 		type: String,
 		unique: true
 	}, 
+	email: {
+        type: String,
+		required: true,
+        unique: true, // Add validation if email is required
+    },
 	password: String, 
-	admin: Boolean,
+	admin: {
+		type: Boolean,
+		default: false  // Set the default value for admin to false
+	},
 	credit: Number
 }));
