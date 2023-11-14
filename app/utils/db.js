@@ -3,8 +3,6 @@ exports.findUserByID =  function(id, cb){
 	User.findOne({
 		_id: id
 	}).then((user) => {
-		
-
 		if (!user) {
 			// res.json({ success: false, message: 'Authentication failed. User not found.' });
 			cb(false);
