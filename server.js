@@ -447,7 +447,7 @@ function generateRandNum() {
 
 	var random_nums = [];
 	for(var i=0;i<3;i++){
-		random_nums.push(getRandomInt(0,36));
+		random_nums.push(getRandomInt(0, 37));
 	}
 	var final_num = random_nums[getRandomInt(0,2)];
 
@@ -527,6 +527,7 @@ var csvDump = async function(res = false){
 	});
 
 	try {
+
 		const currentDate = new Date();
 		const currentMonth = currentDate.getMonth();
 		const currentYear = currentDate.getFullYear();
@@ -549,11 +550,13 @@ var csvDump = async function(res = false){
 		});
 	  
 		const wons = orderedNums.map((num) => {
+
 		  const won = JSON.parse(JSON.stringify(winning_num_constants[num['won']])),
 			date = num['date'];
 		  won['date'] = date.getUTCDate() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCFullYear();
 		  won['time'] = date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds();
 		  return won;
+
 		});
 	  
 		await csvWriter.writeRecords(wons); // returns a promise
@@ -1127,8 +1130,10 @@ app.get('/csv', async function(req, res) {
 	
 		const [year, month] = queryDate.split('-');
 		const monthNames = [
+
 			'Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
 			'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+
 		  ];
 
 		const monthName = monthNames[parseInt(month) - 1];
@@ -1137,9 +1142,11 @@ app.get('/csv', async function(req, res) {
 		filePath = `./static/csv/${outputFileName}`;
 		xlsPath = `./static/csv/${year}_${monthName}.xlsx`;
 	}
+
 	console.log('open csvfile', filePath);
 	var workbook = new Excel.Workbook();
 	workbook.csv.readFile(filePath)
+
 	.then(function(worksheet) {
 	    // use workbook or worksheet
 	    workbook.xlsx.writeFile(xlsPath)
@@ -1153,6 +1160,7 @@ app.get('/csv', async function(req, res) {
 	        saveLog('download')
 	        res.sendFile(path.join(__dirname, xlsPath));
 	    });
+
 	});
 
 });

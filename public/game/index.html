@@ -996,14 +996,19 @@
                     statistic02.count_three_group12);
                     $('.hdActual').text(`Actual outcomes, Total Spin = ${totalSpin}`)
                 }).fail(function (err) {
+
                     console.log(err);
+
                 })
             }
 
             function fillNumber(counts) {
 
+                $('#fill-numbers').empty();
+
                 let mostExp = 0;
                 let lestEpx = 1000000;
+                
                 counts.forEach(count => {
                     if (count.count >= mostExp) {
                         mostExp = count.count;
@@ -1038,6 +1043,7 @@
 
                     const tr = $('<tr></tr>');
                     tr.append(firstCol, secondCol, thirdCol);
+
                     $('#fill-numbers').append(tr);
 
                 })
@@ -1045,6 +1051,9 @@
             }
 
             function fillEvenOdd(even_count, odd_count) {
+
+                    $('#fill-evenOdd').empty();
+
                     const firstEveCol = $('<td></td>').text('Even');
           
                     const formulaEveRes = Math.floor((Number(totalSpin) * 18) / 37);
@@ -1078,6 +1087,9 @@
             }
 
             function filltwoGroup(count_1_18, count_19_36) {
+
+                $('#two-group').empty();
+                
                 const first118Col = $('<td></td>').text('1 - 18');
           
                 const formula118Res = Math.floor((Number(totalSpin)) / 18);
@@ -1114,6 +1126,8 @@
             }
 
             function fillRedBlack(red_count, black_count) {
+
+                    $('#fill-redBlack').empty();
                 
                     const firstRedCol = $('<td></td>').text('Red');
           
@@ -1147,11 +1161,14 @@
                     }
                     const blaTr = $('<tr></tr>');
                     blaTr.append(firstBlaCol, secondBlaCol, thirdBlaCol);
+
                     $('#fill-redBlack').append(blaTr);
             }
 
             function fillDozen(first_dozen_count, second_dozen_count, third_dozen_count) {
 
+                $('#dozen-group').empty();
+                
                 let largest = first_dozen_count; // Assume the first argument is the largest
                 let smallest = first_dozen_count; // Assume the first argument is the smallest
 
@@ -1171,7 +1188,9 @@
                 console.log('second_dozen_count === smallest: ', second_dozen_count === smallest);
                 
                 const firstDoz01Col = $('<td></td>').text('First');
-          
+                    
+                    
+
                     const formulaDoz01Res = Math.floor((Number(totalSpin) * 12) / 37);
                     let thirdDoz01Col;
                     const secondDoz01Col = $('<td></td>').text(formulaDoz01Res);
@@ -1225,6 +1244,9 @@
             }
 
             function fillColumn(first_col_count, second_col_count, third_col_count) {
+
+                $('#column-group').empty();
+
                 let largest = first_col_count; // Assume the first argument is the largest
                 let smallest = first_col_count; // Assume the first argument is the smallest
 
@@ -1241,7 +1263,9 @@
                 } 
                 
                 const firstCol01Col = $('<td></td>').text('Column One');
-          
+
+
+
                     const formulaCol01Res = Math.floor((Number(totalSpin) * 12) / 37);
                 
                     const secondCol01Col = $('<td></td>').text(formulaCol01Res);
@@ -1304,6 +1328,8 @@
 
             function fillSixGroup(sg1, sg2, sg3, sg4, sg5, sg6) {
 
+                $('#six-group').empty();
+                
                 const countArr = [sg1, sg2, sg3,  sg4, sg5, sg6];
                 let largest = Math.max(...countArr);
                 let smallest = Math.min(...countArr);
@@ -1356,6 +1382,8 @@
             }
 
             function fillThreeGroup(tg1, tg2, tg3, tg4, tg5, tg6, tg7, tg8, tg9, tg10, tg11, tg12) {
+
+                $('#three-group').empty();
 
                 const countArr = [tg1, tg2, tg3, tg4, tg5, tg6, tg7, tg8, tg9, tg10, tg11, tg12];
 
@@ -1425,6 +1453,7 @@
             }
 
             function pushMessage(text, name, chatTime = new Date()) {
+
                 const message = $('<div class="message"></div>');
 
                 const upperDiv = $('<div class="upper"></div>');
@@ -1451,7 +1480,6 @@
                 $('#message-input').val('');
             }
 
-      
 
             function formatAMPM(date) {
                 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
