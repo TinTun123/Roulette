@@ -458,10 +458,10 @@ function generateRandNum() {
 	for(var i=0;i<3;i++){
 		random_nums.push(getRandomInt(0, 37));
 	}
-	var final_num = random_nums[getRandomInt(0,2)];
+	var final_num = random_nums[getRandomInt(0,3)];
 
 	var won_num = new WonStore({ 
-		won: 36 
+		won: final_num
 	});
 
 	// won_num.save(function(err) {
