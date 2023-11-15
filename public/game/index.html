@@ -738,6 +738,7 @@
             let userId = null;
             let userChannelName;
             let userChannel;
+            let countDownInterval;
             let chatHistory = {
                 userId : '',
                 chat : []
@@ -821,7 +822,7 @@
             });
 
             $(document).ready(function() {
-
+                // getRemainingTime();
                 $("#selectFruit").change(function () {
                     // Get the selected value
                     var selectedValue = $(this).val();
@@ -1008,7 +1009,7 @@
 
                 let mostExp = 0;
                 let lestEpx = 1000000;
-                
+
                 counts.forEach(count => {
                     if (count.count >= mostExp) {
                         mostExp = count.count;
@@ -1835,6 +1836,39 @@
                 jQuery('#time-block').show();
                 $('#remaining-time').text(data.remainingTime);
             })
+
+            channel.bind('trigger-timmer', function (data) {
+                const remainingSeconds = parseInt(data.remainingTime);
+
+
+                if (remainingSeconds <= 60) {
+                    startCountDown(remainingSeconds);
+                }
+
+            })
+
+            function startCountDown(seconds) {
+
+                clearInterval(countDownInterval);
+
+                let remainSecs = seconds;
+                jQuery('#time-block').show();
+                $('#remaining-time').text(remainSecs + ' secs');
+
+                countDownInterval = setInterval(function () {
+
+                    remainSecs--;
+
+                    $('#remaining-time').text(remainSecs + ' secs');
+
+                    if (remainSecs <= 0) {
+
+                        clearInterval(countDownInterval);
+                        $('#remaining-time').text(5 + ' mins');
+                    }
+                }, 1000);
+
+            }
 
             $('button[id="passSubmitButton"]').on('click', function (ev) {
                 ev.preventDefault();

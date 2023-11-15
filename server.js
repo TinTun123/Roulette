@@ -38,6 +38,8 @@ app.use(morgan('dev'));
 app.use(express.static('public'))
 app.use(cookieParser());
 
+// let remainingTime = 0;
+
 
 
 // routes ==========================================================
@@ -416,26 +418,33 @@ function updateAndSendRemainingTime() {
 	let remainingTime = Math.floor((nextRun - now) / 1000);
 
 	if (remainingTime > 60) {
-		remainingTime = Math.floor(remainingTime / 60) + ' mins';
-		setTimeout(updateAndSendRemainingTime, 20000);
+		remainingTime = Math.floor(remainingTime / 60) + " mins";
+		setTimeout(updateAndSendRemainingTime, 40000);
 	} else {
-		remainingTime = remainingTime + ' secs';
-		setTimeout(updateAndSendRemainingTime, 1500);
+		// remainingTime = remainingTime + ' secs';
+		// setTimeout(updateAndSendRemainingTime, 1500);
+		pusher.trigger('my-channel', 'trigger-timmer', {
+			remainingTime: remainingTime,
+		});
+
+		// remainingTime = Math.floor((nextRun - now) / 1000);
 	}
 
-    // pusher.trigger('my-channel', 'remaining-time-event', {
-    //   remainingTime: remainingTime,
-    // });
-
+    pusher.trigger('my-channel', 'remaining-time-event', {
+      remainingTime: remainingTime,
+    });
 }
 
 app.get('/game/getRemainTime', (req, res) => {
 	// Assuming you have the remainingTime value available
 	/* Get the remaining time value from wherever you store it */;
 	let resTime = 0;
+	console.log('remainingTime: ', remainingTime);
 	if (remainingTime > 60) {
 		resTime = `${remainingTime/60} mins`;
+		console.log('remainTime abo 60: ', resTime);
 	} else {
+		console.log('remainTime belo 60: ', resTime);
 		resTime = `${remainingTime} secs`;
 	}
 	// Send the remainingTime as a JSON response
