@@ -29,7 +29,7 @@ var port = process.env.PORT || 8080;
 mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
 
-// use body parser so we can get info from POST and/or URL parameters
+// use body parser so we  get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -461,7 +461,7 @@ function generateRandNum() {
 	var final_num = random_nums[getRandomInt(0,2)];
 
 	var won_num = new WonStore({ 
-		won: final_num 
+		won: 36 
 	});
 
 	// won_num.save(function(err) {
@@ -1187,9 +1187,12 @@ app.get('/game/history', function(req, res) {
 	// });
 	WonStore.find({}).sort({date: -1}).limit(19).exec()
 	.then((nums) => {
+
 		let res_nums = nums.map((num) => {
 		return num['won'];
+
 		});
+
 		console.log(res_nums);
 		// res_nums.reverse();
 		res.json({success: true, history: res_nums});
