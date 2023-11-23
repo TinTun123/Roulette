@@ -40,7 +40,7 @@ app.use(morgan('dev'));
 app.use(express.static('public'))
 app.use(cookieParser());
 
-// let remainingTime = 0;
+let remainingTime = 0;
 
 
 
@@ -417,7 +417,7 @@ function getRandomInt(min, max) {
 function updateAndSendRemainingTime() {
 	const now = new Date();
 
-	let remainingTime = Math.floor((nextRun - now) / 1000);
+	remainingTime = Math.floor((nextRun - now) / 1000);
 
 	if (remainingTime > 60) {
 		remainingTime = Math.floor(remainingTime / 60) + " mins";
@@ -429,7 +429,8 @@ function updateAndSendRemainingTime() {
 			remainingTime: remainingTime,
 		});
 
-		// remainingTime = Math.floor((nextRun - now) / 1000);
+		remainingTime = Math.floor((nextRun - now) / 1000);
+		console.log('remainingTime: ', remainingTime);
 	}
 
     pusher.trigger('my-channel', 'remaining-time-event', {
@@ -441,13 +442,13 @@ app.get('/game/getRemainTime', (req, res) => {
 	// Assuming you have the remainingTime value available
 	/* Get the remaining time value from wherever you store it */;
 	let resTime = 0;
-	console.log('remainingTime: ', remainingTime);
+
 	if (remainingTime > 60) {
 		resTime = `${remainingTime/60} mins`;
 		console.log('remainTime abo 60: ', resTime);
 	} else {
 		console.log('remainTime belo 60: ', resTime);
-		resTime = `${remainingTime} secs`;
+		resTime = `${remainingTime}`;
 	}
 	// Send the remainingTime as a JSON response
 	res.json({ success: true, remainingTime: resTime });
@@ -616,7 +617,7 @@ app.get('/getStatistic', (req, res) => {
 					else: {
 					  $cond: {
 						if: {
-						  $in: ["$_id", [1, 3, 5, 7, 9, 12, 14, 16, 18, 23, 25, 27, 30, 32, 34, 36]],
+						  $in: ["$_id", [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]],
 						},
 						then: "red",
 						else: "black",
@@ -656,11 +657,16 @@ app.get('/getStatistic', (req, res) => {
 					input: "$counts",
 					initialValue: 0,
 					in: {
-					  $cond: {
-						if: { $eq: [{ $mod: ["$$this._id", 2] }, 1] },
-						then: { $add: ["$$value", "$$this.count"] },
-						else: "$$value",
-					  },
+						$cond: {
+							if: {
+							  $and: [
+								{ $ne: ["$$this._id", 0] }, // Exclude zero
+								{ $eq: [{ $mod: ["$$this._id", 2] }, 1] } // Check for odd remainder
+							  ]
+							},
+							then: { $add: ["$$value", "$$this.count"] },
+							else: "$$value"
+						  }
 					},
 				  },
 				},
@@ -669,11 +675,16 @@ app.get('/getStatistic', (req, res) => {
 					input: "$counts",
 					initialValue: 0,
 					in: {
-					  $cond: {
-						if: { $eq: [{ $mod: ["$$this._id", 2] }, 0] },
-						then: { $add: ["$$value", "$$this.count"] },
-						else: "$$value",
-					  },
+						$cond: {
+							if: {
+							  $and: [
+								{ $ne: ["$$this._id", 0] }, // Exclude zero
+								{ $eq: [{ $mod: ["$$this._id", 2] }, 0] } // Check for odd remainder
+							  ]
+							},
+							then: { $add: ["$$value", "$$this.count"] },
+							else: "$$value"
+						  }
 					},
 				  },
 				},
@@ -730,7 +741,7 @@ app.get('/getStatisticSec', (req, res) => {
 				count_1_to_18: {
 				  $sum: {
 					$cond: [
-					  { $lte: ["$won", 18] },
+						{ $and: [ { $gte: ["$won", 1] }, { $lte: ["$won", 18] } ] },
 					  1,
 					  0,
 					],
@@ -739,7 +750,7 @@ app.get('/getStatisticSec', (req, res) => {
 				count_19_to_36: {
 				  $sum: {
 					$cond: [
-					  { $gte: ["$won", 19] },
+						{ $and: [ { $gte: ["$won", 19] }, { $lte: ["$won", 36] } ] },
 					  1,
 					  0,
 					],

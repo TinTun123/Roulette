@@ -79,8 +79,8 @@
               }
 
               #statistic {
-                    margin-left: 150px;
-                    margin-right: 1rem;
+                    margin: auto;
+                    width: 70%;
                     margin-top: 2rem;
                 }
                 
@@ -361,12 +361,12 @@
                             <div class="navbar-collapse collapse sidebar-navbar-collapse">
                                 <ul class="nav navbar-nav" id="nav-buttons">
 
-                                    <li data-action="aboutus" class="active">
+                                    <li data-action="aboutus" >
                                         <a href="#">About us</a>
                                     </li>
 
                                     <!-- <li data-action="see"><a href="#">See</a></li> -->
-                                    <li data-action="play">
+                                    <li data-action="play" class="active">
                                         <a href="#">Roulette</a>
                                     </li>
 
@@ -383,15 +383,15 @@
                                     </li>
 
                                     <li data-action="statistic">
-                                        <a href="#">Statistic</a>
+                                        <a href="#">Analytics</a>
                                     </li>
 
                                     <li data-action="scores">
-                                        <a href="#">Scores</a>
+                                        <a href="#">Rating of Players</a>
                                     </li>
 
                                     <li>
-                                        <a href="/login">Registeration</a>
+                                        <a href="/login">Registration</a>
                                     </li>
                                 </ul>
                             </div>
@@ -434,8 +434,8 @@
                         <!-- <caption style="text-align:left;color: black;font-weight: 800;font-size: 14px;">My savings</caption> -->
                           
                           <tr>
-                            <th>Numbers (0 - 36)</th>
-                            <th class="hdStatisticNum">Statistically expected outcomes</th>
+                            <th>N0.1 (0 - 36)</th>
+                            <th class="hdStatisticNum">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -451,8 +451,8 @@
                         <thead class="thead-dark">
                             
                           <tr>
-                            <th>Red / Black outcomes</th>
-                            <th class="hdStatisticRedBlack">Statistically expected outcomes</th>
+                            <th>No.2 Red / Black outcomes</th>
+                            <th class="hdStatisticRedBlack">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -465,8 +465,8 @@
                     <table  class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th> 1 - 19 outcomes * 19 - 36</th>
-                            <th class="hdStatisticTwoG">Statistically expected outcomes</th>
+                            <th>No.3 1 - 18 / 19 - 36</th>
+                            <th class="hdStatisticTwoG">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -479,8 +479,8 @@
                     <table  class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th>Odd & Even</th>
-                            <th class="hdStatisticOddEven">Statistically expected outcomes</th>
+                            <th>No.4 Odd & Even</th>
+                            <th class="hdStatisticOddEven">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -494,8 +494,8 @@
                     <table  class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th>Dozen</th>
-                            <th class="hdStatisticDozen">Statistically expected outcomes</th>
+                            <th>No.5 Dozen</th>
+                            <th class="hdStatisticDozen">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -508,8 +508,8 @@
                     <table  class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th>Columns</th>
-                            <th class="hdStatisticColumn">Statistically expected outcomes</th>
+                            <th>No.6 Columns</th>
+                            <th class="hdStatisticColumn">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -522,8 +522,8 @@
                     <table  class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th>Six</th>
-                            <th class="hdStatisticSixGro">Statistically expected outcomes</th>
+                            <th>No.7 Six</th>
+                            <th class="hdStatisticSixGro">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -536,8 +536,8 @@
                     <table  class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th>Three</th>
-                            <th class="hdStatisticThreeGro">Statistically expected outcomes</th>
+                            <th>No.8 Three</th>
+                            <th class="hdStatisticThreeGro">Statistically expected number of outcomes</th>
                             <th class="hdActual">Actual outcomes</th>
                           </tr>
                         </thead>
@@ -727,9 +727,9 @@
             </div>
             
 
-            <div class="container" id="time-block" style="position: fixed;z-index: 999;left: 16px; bottom: 16px; padding: 2px; padding-left: 8px; padding-right: 8px; background: rgb(1, 114, 1); width:  fit-content; border-radius: 100px; display: none;">
-                <span id="remaining-time" style="color: rgb(255, 255, 255); font-weight: 600;"></span>
-                <span style="color: rgb(255, 255, 255); font-weight: 600;">To Spin</span>
+            <div class="container" id="time-block" style="position: fixed;z-index: 999;right: 16px; top: 16px; padding: 2px; padding-left: 8px; padding-right: 8px; background: rgb(1, 114, 1); width:  fit-content; border-radius: 100px; display: none;">
+                <span id="remaining-time" style="color: rgb(255, 255, 255); font-weight: 600; font-size: 2rem;"></span>
+                <span style="color: rgb(255, 255, 255); font-weight: 600; font-size: 2rem;">To Spin</span>
             </div>
 
           <script>
@@ -746,7 +746,7 @@
 
             let statistic01 = {};
             let statistic02 = {};
-
+            let zero_count = 0;
             let totalSpin = 0;
 
             function getCookie(cname) {
@@ -822,7 +822,7 @@
             });
 
             $(document).ready(function() {
-                // getRemainingTime();
+                getRemainingTime();
                 $("#selectFruit").change(function () {
                     // Get the selected value
                     var selectedValue = $(this).val();
@@ -964,8 +964,9 @@
                     console.log('fetching statistic ok');
                     statistic01 = data.result[0];
                     fillNumber(statistic01.counts);
-                    fillRedBlack(statistic01.red_count, statistic01.black_count);
-                    fillEvenOdd(statistic01.even_count, statistic01.odd_count);
+                    zero_count = statistic01.counts[0].count;
+                    fillRedBlack(statistic01.red_count, statistic01.black_count, statistic01.counts[0].count);
+                    fillEvenOdd(statistic01.even_count, statistic01.odd_count, statistic01.counts[0].count);
 
                 }).fail(function (err) {
                     console.log(err);
@@ -979,10 +980,10 @@
                     }  // Expect JSON response
                 }).done(function (data) {
                     statistic02 = data.result[0];
-                    filltwoGroup(statistic02.count_1_to_18, statistic02.count_19_to_36);
-                    fillDozen(statistic02.count_first_column, statistic02.count_second_column, statistic02.count_third_column);
-                    fillColumn(statistic02.count_first_dozen, statistic02.count_second_dozen, statistic02.count_third_dozen);
-                    fillSixGroup(statistic02.count_six_group1, statistic02.count_six_group2, statistic02.count_six_group3, statistic02.count_six_group4, statistic02.count_six_group5, statistic02.count_six_group6);
+                    filltwoGroup(statistic02.count_1_to_18, statistic02.count_19_to_36, zero_count);
+                    fillDozen(statistic02.count_first_column, statistic02.count_second_column, statistic02.count_third_column, zero_count);
+                    fillColumn(statistic02.count_first_dozen, statistic02.count_second_dozen, statistic02.count_third_dozen, zero_count);
+                    fillSixGroup(statistic02.count_six_group1, statistic02.count_six_group2, statistic02.count_six_group3, statistic02.count_six_group4, statistic02.count_six_group5, statistic02.count_six_group6, zero_count);
                     fillThreeGroup(statistic02.count_three_group1, 
                     statistic02.count_three_group2, 
                     statistic02.count_three_group3,
@@ -994,7 +995,8 @@
                     statistic02.count_three_group9,
                     statistic02.count_three_group10,
                     statistic02.count_three_group11,
-                    statistic02.count_three_group12);
+                    statistic02.count_three_group12,
+                    zero_count);
                     $('.hdActual').text(`Actual outcomes, Total Spin = ${totalSpin}`)
                 }).fail(function (err) {
 
@@ -1028,7 +1030,7 @@
 
                     const formulaRes = Math.floor(Number(totalSpin) / 37);
                   
-                    $('.hdStatisticNum').text(`Statistically expected outcomes (n / 37) n:${totalSpin}`);
+                    $('.hdStatisticNum').text(`Statistically expected number of outcomes n/37, n:${totalSpin}`);
 
                     const secondCol = $('<td></td>').text(formulaRes);
 
@@ -1051,7 +1053,7 @@
 
             }
 
-            function fillEvenOdd(even_count, odd_count) {
+            function fillEvenOdd(even_count, odd_count, zero_count) {
 
                     $('#fill-evenOdd').empty();
 
@@ -1066,7 +1068,7 @@
                     } else {
                         thirdEveCol.addClass('mostExp');
                     }
-                    $('.hdStatisticOddEven').text(`Statistically expected outcomes (n * 18) / 37, n:${totalSpin}`);
+                    $('.hdStatisticOddEven').text(`Statistically expected number of outcomes n/37 * 18, n:${totalSpin}`);
                     const eveTr = $('<tr></tr>');
                     eveTr.append(firstEveCol, secondEveCol, thirdEveCol);
                     $('#fill-evenOdd').append(eveTr);
@@ -1085,15 +1087,22 @@
                     const oddTr = $('<tr></tr>');
                     oddTr.append(firstOddCol, secondOddCol, thirdOddCol);
                     $('#fill-evenOdd').append(oddTr);
+
+                    const firstZeroCol = $('<td></td>').text('0');
+                    const secondZeroCol = $('<td></td>').text(' ');
+                    const thirdZeroCol = $('<td></td>').text(zero_count);
+                    const zeroTr = $('<tr></tr>');
+                    zeroTr.append(firstZeroCol, secondZeroCol, thirdZeroCol);
+                    $('#fill-evenOdd').append(zeroTr);
             }
 
-            function filltwoGroup(count_1_18, count_19_36) {
+            function filltwoGroup(count_1_18, count_19_36, zero_count) {
 
                 $('#two-group').empty();
                 
                 const first118Col = $('<td></td>').text('1 - 18');
           
-                const formula118Res = Math.floor((Number(totalSpin)) / 18);
+                const formula118Res = Math.floor((Number(totalSpin)) * 18 / 37);
             
                 const second118Col = $('<td></td>').text(formula118Res);
                 const third118Col = $('<td></td>').text(count_1_18 + (count_1_18 > count_19_36 ? ' ( least expected)' : ' ( most expected)'));
@@ -1104,7 +1113,7 @@
                     third118Col.addClass('mostExp');
                 }
 
-                $('.hdStatisticTwoG').text(`Statistically expected outcomes n / 18, n:${totalSpin}`);
+                $('.hdStatisticTwoG').text(`Statistically expected number of outcomes n/18, n:${totalSpin}`);
 
                 const two118Tr = $('<tr></tr>');
                 two118Tr.append(first118Col, second118Col, third118Col);
@@ -1124,9 +1133,16 @@
                 const two1936Tr = $('<tr></tr>');
                 two1936Tr.append(first1936Col, second1936Col, third1936Col);
                 $('#two-group').append(two1936Tr);
+
+                const firstZeroCol = $('<td></td>').text('0');
+                const secondZeroCol = $('<td></td>').text(' ');
+                const thirdZeroCol = $('<td></td>').text(zero_count);
+                const zeroTr = $('<tr></tr>');
+                zeroTr.append(firstZeroCol, secondZeroCol, thirdZeroCol);
+                $('#two-group').append(zeroTr);
             }
 
-            function fillRedBlack(red_count, black_count) {
+            function fillRedBlack(red_count, black_count, zero_count) {
 
                     $('#fill-redBlack').empty();
                 
@@ -1143,7 +1159,7 @@
                         thirdRedCol.addClass('mostExp');
                     }
 
-                    $('.hdStatisticRedBlack').text(`Statistically expected outcomes (n * 18) / 37, n:${totalSpin}`);
+                    $('.hdStatisticRedBlack').text(`Statistically expected number of outcomes n/37 * 18, n:${totalSpin}`);
                     const redTr = $('<tr></tr>');
                     redTr.append(firstRedCol, secondRedCol, thirdRedCol);
                     $('#fill-redBlack').append(redTr);
@@ -1164,9 +1180,16 @@
                     blaTr.append(firstBlaCol, secondBlaCol, thirdBlaCol);
 
                     $('#fill-redBlack').append(blaTr);
+
+                    const firstZeroCol = $('<td></td>').text('0');
+                    const secondZeroCol = $('<td></td>').text(' ');
+                    const thirdZeroCol = $('<td></td>').text(zero_count);
+                    const zeroTr = $('<tr></tr>');
+                    zeroTr.append(firstZeroCol, secondZeroCol, thirdZeroCol);
+                    $('#fill-redBlack').append(zeroTr);
             }
 
-            function fillDozen(first_dozen_count, second_dozen_count, third_dozen_count) {
+            function fillDozen(first_dozen_count, second_dozen_count, third_dozen_count, zero_count) {
 
                 $('#dozen-group').empty();
                 
@@ -1202,7 +1225,7 @@
                     } else {
                         thirdDoz01Col = $('<td></td>').text(first_dozen_count);
                     }
-                    $('.hdStatisticDozen').text(`Statistically expected outcomes (n * 12) / 37, n:${totalSpin}`);
+                    $('.hdStatisticDozen').text(`Statistically expected number of outcomes n/37 * 12, n:${totalSpin}`);
                     const d1Tr = $('<tr></tr>');
                     d1Tr.append(firstDoz01Col, secondDoz01Col, thirdDoz01Col);
                     $('#dozen-group').append(d1Tr);
@@ -1242,9 +1265,16 @@
                     const d3Tr = $('<tr></tr>');
                     d3Tr.append(firstDoz03Col, secondDoz03Col, thirdDoz03Col);
                     $('#dozen-group').append(d3Tr);
+
+                    const firstZeroCol = $('<td></td>').text('0');
+                    const secondZeroCol = $('<td></td>').text(' ');
+                    const thirdZeroCol = $('<td></td>').text(zero_count);
+                    const zeroTr = $('<tr></tr>');
+                    zeroTr.append(firstZeroCol, secondZeroCol, thirdZeroCol);
+                    $('#dozen-group').append(zeroTr);
             }
 
-            function fillColumn(first_col_count, second_col_count, third_col_count) {
+            function fillColumn(first_col_count, second_col_count, third_col_count, zero_count) {
 
                 $('#column-group').empty();
 
@@ -1288,7 +1318,7 @@
                     const firstCol02Col = $('<td></td>').text('Column Two');
                    
                     const formulaCol02Res = Math.floor((Number(totalSpin) * 12) / 37);
-                    $('.hdStatisticColumn').text(`Statistically expected outcomes (n * 12) / 37, n:${totalSpin}`);
+                    $('.hdStatisticColumn').text(`Statistically expected number of outcomes n/37 * 12, n:${totalSpin}`);
                     const secondCol02Col = $('<td></td>').text(formulaCol02Res);
 
                     let thirdCol02Col;
@@ -1324,10 +1354,17 @@
                     const col3Tr = $('<tr></tr>');
                     col3Tr.append(firstCol03Col, secondCol03Col, thirdCol03Col);
                     $('#column-group').append(col3Tr);
+
+                    const firstZeroCol = $('<td></td>').text('0');
+                    const secondZeroCol = $('<td></td>').text(' ');
+                    const thirdZeroCol = $('<td></td>').text(zero_count);
+                    const zeroTr = $('<tr></tr>');
+                    zeroTr.append(firstZeroCol, secondZeroCol, thirdZeroCol);
+                    $('#column-group').append(zeroTr);
             }
 
 
-            function fillSixGroup(sg1, sg2, sg3, sg4, sg5, sg6) {
+            function fillSixGroup(sg1, sg2, sg3, sg4, sg5, sg6, zero_count) {
 
                 $('#six-group').empty();
                 
@@ -1357,7 +1394,7 @@
                             first_cell = '31 - 36';
                     }
                     // 
-                    $('.hdStatisticSixGro').text(`Statistically expected outcomes (n * 6) / 37, n:${totalSpin}`);
+                    $('.hdStatisticSixGro').text(`Statistically expected number of outcomes n/37 * 6, n:${totalSpin}`);
                     const firstSix01Col = $('<td></td>').text(first_cell);
           
                     const formulaSix01Res = Math.floor((Number(totalSpin) * 6) / 37);
@@ -1377,12 +1414,17 @@
                     six1Tr.append(firstSix01Col, secondSix01Col, thirdSix01Col);
                     $('#six-group').append(six1Tr);
                 })
-                    
 
+                const firstZeroCol = $('<td></td>').text('0');
+                const secondZeroCol = $('<td></td>').text(' ');
+                const thirdZeroCol = $('<td></td>').text(zero_count);
+                const zeroTr = $('<tr></tr>');
+                zeroTr.append(firstZeroCol, secondZeroCol, thirdZeroCol);
+                $('#six-group').append(zeroTr);
                     
             }
 
-            function fillThreeGroup(tg1, tg2, tg3, tg4, tg5, tg6, tg7, tg8, tg9, tg10, tg11, tg12) {
+            function fillThreeGroup(tg1, tg2, tg3, tg4, tg5, tg6, tg7, tg8, tg9, tg10, tg11, tg12, zero_count) {
 
                 $('#three-group').empty();
 
@@ -1429,7 +1471,7 @@
                             first_cell = '34 - 36';
                     }
                     const firstSix01Col = $('<td></td>').text(first_cell);
-                    $('.hdStatisticThreeGro').text(`Statistically expected outcomes (n * 3) / 37, n:${totalSpin}`);
+                    $('.hdStatisticThreeGro').text(`Statistically expected number of outcomes n/37 * 3, n:${totalSpin}`);
                     const formulaSix01Res = Math.floor((Number(totalSpin) * 3) / 37);
                     $('.hdStatisticSix').text(`Statistically expected outcomes (n * 12) / 37, n:${totalSpin}`);
                     const secondSix01Col = $('<td></td>').text(formulaSix01Res);
@@ -1448,7 +1490,13 @@
                     six1Tr.append(firstSix01Col, secondSix01Col, thirdSix01Col);
                     $('#three-group').append(six1Tr);
                 })
-                    
+                
+                const firstZeroCol = $('<td></td>').text('0');
+                const secondZeroCol = $('<td></td>').text(' ');
+                const thirdZeroCol = $('<td></td>').text(zero_count);
+                const zeroTr = $('<tr></tr>');
+                zeroTr.append(firstZeroCol, secondZeroCol, thirdZeroCol);
+                $('#three-group').append(zeroTr);
 
                     
             }
