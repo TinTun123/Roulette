@@ -88,11 +88,28 @@
                     top: 100px;
                 }
             }
-            h1:not(.jumbotron-title){
-                text-align: center;
-                background: #9b9393;
+            .h1-header:not(.jumbotron-title){
+                /* text-align: left; */
+
+                background: #1D6B87;
+               
+                /* margin-top: 16px; */
+                width: 70%;
+                margin: auto;
+                margin-top: 16px;
+                border-radius: 16px 0px 0px 0px;
+                /* padding-top: 16px;
+                padding-bottom: 16px; */
+            }
+
+            h1:not(.jumbotron-title) {
+                width: 30%;
                 margin: 0px;
-                padding: 10px;
+                padding: 16px;
+                color: white;
+                font-size: 23px;
+                border-radius: 16px 0px 16px 0px;
+                background-color: #28871d;
             }
 
             .jumbotron {
@@ -100,17 +117,24 @@
                 color: #fff;
                 background-color: #1D6B87;
                 padding: 4.3rem 0;
-                margin: 0;
+                margin: auto;
+                width: 70%;
+                /* margin-top: 16px; */
                 border-radius: 0;
-                text-align: center;
+                text-align: left;
+            }
+
+            .jumbotron p {
+                font-size: 18px;
+                line-height: 24px;
             }
             .jumbotron .container{
                 max-width: 75%;
             }
             .counts{
                 position: absolute;
-                right: 0px;
-                top: 0px;
+                left: 16px;
+                bottom: 16px;
                 margin: 20px;
             }
             .counts>span{
@@ -324,7 +348,8 @@
                 align-items: center;
                 padding-top: 16px;
                 padding-bottom: 16px;
-
+                width: 70%;
+                margin: auto;
             }
 
             .score-li {
@@ -405,18 +430,49 @@
 	<!-- <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div> -->
 
             <div style="display: none;" data-page="aboutus">
-                <h1>About Us</h1>
+                <div class="h1-header">
+                    <h1>About Us</h1>
+                </div>
+
                 <h3 class="counts">Hits:<span id="aboutus-count"></span></h3>
                 <section class="jumbotron" style="">
                     <div class="container">
                         <div class="row ">
                             <div class="col-md  content-wrapper">
                                 <h1 class="jumbotron-title display-1">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
+                                    <p>The concept of advancing the roulette experience seemed improbable without altering its fundamental rules. However, I have demonstrated that an alternative approach is viable. As the proprietor of this roulette platform, I stand on the side of the players, advocating for a model that functions seamlessly.</p>
                                 </h1>
                                 <h5 class="jumbotron-subtitle">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi necessitatibus, quis autem iusto? Ratione assumenda sunt neque, explicabo minus consectetur harum. Voluptates quis, blanditiis doloribus! Quaerat ducimus magni animi, molestiae voluptatem beatae maxime! Tempora aliquam mollitia autem porro, dicta aut atque ipsa vero omnis. Aperiam, eos pariatur minima, ab mollitia perspiciatis, nostrum asperiores temporibus quibusdam expedita corporis. Eius eos autem, accusantium debitis libero tempora consequatur reprehenderit sint ut mollitia aliquid illo quasi molestias! Temporibus harum voluptatibus omnis, illo ullam? Soluta eius neque numquam quae inventore tenetur voluptatum sapiente voluptatem voluptas quidem similique consequatur rem quam illum itaque debitis natus doloremque, at facere expedita, autem, qui non, nostrum eaque. Explicabo cumque, quidem iste. Vero voluptate id eaque eos magnam nam, dolorem obcaecati tempora numquam, dolorum officiis, reiciendis excepturi, doloribus sed iste temporibus explicabo ducimus magni. Quis inventore unde doloremque ducimus, incidunt enim ipsa tenetur. Est deserunt, quibusdam. Facere earum quidem asperiores a eaque, inventore eveniet. Similique itaque deleniti blanditiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
+                                    <p>I conceived this platform in response to the desires expressed by roulette players. Countless hours of discussions with them led to the creation of this platform, but this is merely the inception. I am optimistic about its continuous evolution and expansion.</p>
                                 </h5>
+
+                                <h5 class="jumbotron-subtitle">
+                                    <p>Upon its full realization, this idea will mark only the commencement of an extraordinary adventure. It serves as a precursor to an imminent revolution. My insights extend beyond roulette; I comprehend the aspirations of lottery enthusiasts. I envision creating a lottery that will reign supreme among all. The common consensus that lottery conventions cannot be altered resonates with me, and I relish the challenge. Soon, you will all bear witness to this transformation.</p>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="jumbotron-overlay"></div>
+                </section>
+                <div class="h1-header">
+                    <h1 style="margin-top: 0px;">Roulette Experience</h1>
+                </div>
+                
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>We are dedicated to fulfilling the aspirations of every roulette enthusiast worldwide. Our roulette platform adheres to classic rules and spins once every 5 minutes, 24/7. The algorithm governing outcomes remains consistent and unchanging. Each outcome is meticulously archived and available for download here. We provide a range of analytical tools for outcome prediction and analysis, with a commitment to continuously introducing new ones. Our aim is to equip you with everything essential for playing and succeeding. Rest assured, playing here guarantees the safeguarding of your invested money. However, the potential for winning is tangible!</p>
+                                </h1>
+                                <h5 class="jumbotron-subtitle">
+                                    <p>Craft your strategies, devise and implement your personalized tools, and stand a chance to win $300 in real currency if you become the first player to achieve a virtual $300,000 from your account. Alternatively, we offer a $100 reward to any player who reaches a virtual $100,000 within one month, starting from a virtual $1000. Moreover, as our platform evolves, opportunities to win substantial real cash prizes will increase. In the event of losses from the initially provided virtual $1000, we'll automatically and without charge replenish your account with an additional virtual $1000, as many times as required.</p>
+                                </h5>
+<!-- 
+                                <h5 class="jumbotron-subtitle">
+                                    <p>Upon its full realization, this idea will mark only the commencement of an extraordinary adventure. It serves as a precursor to an imminent revolution. My insights extend beyond roulette; I comprehend the aspirations of lottery enthusiasts. I envision creating a lottery that will reign supreme among all. The common consensus that lottery conventions cannot be altered resonates with me, and I relish the challenge. Soon, you will all bear witness to this transformation.</p>
+                                </h5> -->
                             </div>
                         </div>
                         <div class="overlay"></div>
@@ -426,7 +482,30 @@
             </div>
 
             <div style="display: none;" data-page="statistic">
-                <h1>Roulette Statistic</h1>
+                <div class="h1-header">
+                    <h1>Analytics Insights</h1>
+                </div>
+
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>We offer straightforward analytics tools here, with plans for more intricate features underway. Share your preferences for analytics tools through correspondence with the Administrator. Additionally, you can devise your exclusive strategies based on the data retrieved from the Archive.</p>
+                                </h1>
+                                <!-- <h5 class="jumbotron-subtitle">
+                                    <p>I conceived this platform in response to the desires expressed by roulette players. Countless hours of discussions with them led to the creation of this platform, but this is merely the inception. I am optimistic about its continuous evolution and expansion.</p>
+                                </h5> -->
+
+                                <!-- <h5 class="jumbotron-subtitle">
+                                    <p>Upon its full realization, this idea will mark only the commencement of an extraordinary adventure. It serves as a precursor to an imminent revolution. My insights extend beyond roulette; I comprehend the aspirations of lottery enthusiasts. I envision creating a lottery that will reign supreme among all. The common consensus that lottery conventions cannot be altered resonates with me, and I relish the challenge. Soon, you will all bear witness to this transformation.</p>
+                                </h5> -->
+                            </div>
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="jumbotron-overlay"></div>
+                </section>
                 <div id="statistic">
 
                     <table  class="table">
@@ -548,8 +627,6 @@
                     </table>  
                     
                 </div>
-                
-
             </div>
 
             <div style="display: none;text-align: center;" data-page="see">
@@ -557,7 +634,10 @@
             </div>
 
             <div style="display: none;text-align: center;" data-page="download">
-                <h1>Archieve</h1>
+                <div class="h1-header">
+                    <h1>Archieve</h1>
+                </div>
+
                 <h3 class="counts">Download count:<span id="download-count"></span></h3>
                 
                 <section class="jumbotron" style="">
@@ -565,11 +645,11 @@
                         <div class="row ">
                             <div class="col-md  content-wrapper">
                                 <h1 class="jumbotron-title display-1">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
+                                    <p>Access and download all outcome records from the initial to the latest, organized by months.</p>
                                 </h1>
-                                <h5 class="jumbotron-subtitle">
+                                <!-- <h5 class="jumbotron-subtitle">
                                     itiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
-                                </h5>
+                                </h5> -->
 
                             </div>
                         </div>
@@ -588,7 +668,10 @@
             </div>
 
             <div style="display: none;" data-page="info">
-                <h1>Info for Investors</h1>
+                <div class="h1-header">
+                    <h1>Info for Investors</h1>
+                </div>
+
                 <section class="jumbotron" style="">
                     <div class="container">
                         <div class="row ">
@@ -644,7 +727,10 @@
             </div>
 
             <div style="display: none;" data-page="contacts">
-                <h1>Contacts</h1>
+                <div class="h1-header">
+                    <h1>Contacts</h1>
+                </div>
+
                 <section class="jumbotron" style="">
                     <div class="container">
                         <div class="row ">
@@ -665,10 +751,30 @@
             </div>
 
             <div style="display: none;" data-page="scores">
+                <div class="h1-header">
+                    <h1>
+                        Player Rankings
+                    </h1>
+                </div>
+                
 
-                <h1>
-                    Player scores
-                </h1>
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>View the updated player rankings, refreshed once every 12 hours.</p>
+                                </h1>
+                                <!-- <h5 class="jumbotron-subtitle">
+                                    itiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
+                                </h5> -->
+
+                            </div>
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="jumbotron-overlay"></div>
+                </section>
 
                 <div>
 
@@ -1102,7 +1208,7 @@
                 
                 const first118Col = $('<td></td>').text('1 - 18');
           
-                const formula118Res = Math.floor((Number(totalSpin)) * 18 / 37);
+                const formula118Res = Math.floor((Number(totalSpin)) / 18);
             
                 const second118Col = $('<td></td>').text(formula118Res);
                 const third118Col = $('<td></td>').text(count_1_18 + (count_1_18 > count_19_36 ? ' ( least expected)' : ' ( most expected)'));
@@ -1121,7 +1227,7 @@
 
                 const first1936Col = $('<td></td>').text('19 - 36');
                 
-                const formula1936Res = Math.floor((Number(totalSpin) * 18) / 37);
+                const formula1936Res = Math.floor((Number(totalSpin) / 18));
                 
                 const second1936Col = $('<td></td>').text(formula1936Res);
                 const third1936Col = $('<td></td>').text(count_19_36 + (count_1_18 < count_19_36 ? ' ( least expected)' : ' ( most expected)'));
