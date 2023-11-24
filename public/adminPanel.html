@@ -340,7 +340,7 @@
         }];
 
         let currentChatId = '';
-        var pusher = new Pusher('c200159740f4fd36e454', {
+        var pusher = new Pusher('4602e4b9be6037f45b0e', {
                                 cluster: 'ap1',
                                 authEndpoint: '/api/pusher/auth',
                                 auth: {
@@ -556,6 +556,8 @@
                                 })
                             }
                         }
+
+                        console.log('msg received: ', data.text);
                         
                         if (currentChatId === user._id) {
                             pushMessage(data.text, user.name)
