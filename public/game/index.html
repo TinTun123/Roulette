@@ -336,6 +336,31 @@
 
             }
 
+            .download-page {
+                display: inline-block;
+                background-color: white;
+                
+                padding: 2px 8px 2px 8px;
+                border-radius: 4px;
+
+            }
+
+            .download-page * {
+                color: #024690;
+                font-size: 14px;
+            }
+
+            .download-page:hover {
+                transition: all;
+                color: rgba(0, 123, 255, 0.665);
+                cursor: pointer;
+                
+            }
+
+            .download-page:hover span {
+                color: rgba(0, 123, 255, 0.665);
+            }
+
             #score-ul {
 
                 text-align: center;
@@ -368,64 +393,68 @@
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
 
-        <div class="container" id="side-navi" style="position: fixed;z-index: 999;width: fit-content;">
-            <div class="row">
-                <div class="col-sm-3" style="width: fit-content;height: 100%;border-color: #e7e7e7;padding: 0px 5px;">
-                    <div class="sidebar-nav" style="font-size: 13px;">
-                        <div class="navbar navbar-default" role="navigation">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
+            <div class="container" id="side-navi" style="position: fixed;z-index: 999;width: fit-content;">
+                <div class="row">
+                    <div class="col-sm-3" style="width: fit-content;height: 100%;border-color: #e7e7e7;padding: 0px 5px;">
+                        <div class="sidebar-nav" style="font-size: 13px;">
+                            <div class="navbar navbar-default" role="navigation">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
 
-                                <span class="visible-xs navbar-brand">Sidebar menu</span>
-                            </div>
-                            <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                                <ul class="nav navbar-nav" id="nav-buttons">
+                                    <span class="visible-xs navbar-brand">Sidebar menu</span>
+                                </div>
+                                <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                                    <ul class="nav navbar-nav" id="nav-buttons">
 
-                                    <li data-action="aboutus" >
-                                        <a href="#">About us</a>
-                                    </li>
+                                        <li data-action="aboutus" >
+                                            <a href="#">About us</a>
+                                        </li>
 
-                                    <!-- <li data-action="see"><a href="#">See</a></li> -->
-                                    <li data-action="play" class="active">
-                                        <a href="#">Roulette</a>
-                                    </li>
+                                        <!-- <li data-action="see"><a href="#">See</a></li> -->
+                                        <li data-action="play" class="active">
+                                            <a href="#">Roulette</a>
+                                        </li>
 
-                                    <li data-action="download">
-                                        <a href="#">Archive</a>
-                                    </li>
+                                        <li id="liDownload" data-action="download">
+                                            <a href="#">Archive</a>
+                                        </li>
 
-                                    <li data-action="info">
-                                        <a href="#">Info for Investors</a>
-                                    </li>
+                                        <li data-action="mission">
+                                            <a href="#">Our Mission</a>
+                                        </li>
 
-                                    <li data-action="contacts">
-                                        <a href="#">Contacts</a>
-                                    </li>
+                                        <li data-action="info">
+                                            <a href="#">Info for Investors</a>
+                                        </li>
 
-                                    <li data-action="statistic">
-                                        <a href="#">Analytics</a>
-                                    </li>
+                                        <li data-action="contacts">
+                                            <a href="#">Contacts</a>
+                                        </li>
 
-                                    <li data-action="scores">
-                                        <a href="#">Rating of Players</a>
-                                    </li>
+                                        <li id="liAnalytics" data-action="statistic">
+                                            <a href="#">Analytics</a>
+                                        </li>
 
-                                    <li>
-                                        <a href="/login">Registration</a>
-                                    </li>
-                                </ul>
+                                        <li data-action="scores">
+                                            <a href="#">Rating of Players</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/login">Registration</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
 
 	<!-- <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div> -->
 
@@ -788,12 +817,97 @@
                         <div class="row ">
                             <div class="col-md  content-wrapper">
                                 <h1 class="jumbotron-title display-1">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, numquam</p>
+                                    <p>
+                                        
+                                        Each outcome is meticulously archived and available for download here. We provide a range of analytical tools for outcome prediction and analysis, with a commitment to continuously introducing new ones.
+                                    </p>
                                 </h1>
+                                <div id="goArchieve" class="download-page">
+                                    <div style="display: flex; justify-content: space-between; font-size: 14px; gap: 6px; align-items: center;">
+                                        <span>Go to Archieve</span>
+                                        <div>
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke="#024690" d="M4.93827 1.46316L0.813477 5.58795L6.58818 11.3627C6.80697 11.5814 7.10372 11.7044 7.41314 11.7044C7.72256 11.7044 8.01931 11.5814 8.2381 11.3627L11.5379 8.06283M9.88801 5.58795V3.11308M9.88801 3.11308L7.41314 3.11308M9.88801 3.11308L5.76322 7.23787"  stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>  
+                                </div>
                                 <h5 class="jumbotron-subtitle">
-                                    itiis praesentium ab harum obcaecati asperiores, animi voluptates omnis odit repudiandae fuga laboriosam repellendus delectus dolore neque modi adipisci alias totam reprehenderit qui laudantium iusto! Atque, culpa ipsam quaerat voluptates nesciunt, laborum illum praesentium voluptatibus, nam consectetur esse. Minus sed aliquid tempora impedit.</p>
+                                    <p>
+                                        We provide here a range of analytical tools for outcome prediction and analysis, with a commitment to continuously introducing new ones.
+                                
+                                    </p> 
                                 </h5>
 
+                                <div class="download-page" style="font-size: 14px;">
+                                    <div style="display: flex; justify-content: space-between; gap: 6px; align-items: center;">
+                                        <span id="goAnalytics">Go to Analytics</span>
+                                        <div>
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke="#024690" d="M4.93827 1.46316L0.813477 5.58795L6.58818 11.3627C6.80697 11.5814 7.10372 11.7044 7.41314 11.7044C7.72256 11.7044 8.01931 11.5814 8.2381 11.3627L11.5379 8.06283M9.88801 5.58795V3.11308M9.88801 3.11308L7.41314 3.11308M9.88801 3.11308L5.76322 7.23787"  stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>  
+                                </div>
+
+                                <h5 class="jumbotron-subtitle">
+                                    <p>
+                                        All suggestions please send here
+
+                                        <br>
+                                        ever.ever.spin@gmail.com
+                                    </p> 
+                                </h5>
+
+                            </div>
+                        </div>
+
+                        
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="jumbotron-overlay"></div>
+                </section>
+            </div>
+
+            <div style="display: none;" data-page="mission">
+                <div class="h1-header">
+                    <h1>
+
+                    Our Mission</h1>
+                </div>
+
+                <section class="jumbotron" style="">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>
+                                        We are here to satisfy the dreams and needs of roulette players without making them lose their money. We are here to stimulate the skills in Excel, statistics, and programming by natural wish to predict and to win. We are here to support the therapy of Internet Gaming Disorder and to give a healthy alternative to those who suffer from it.    
+                                    </p>
+                                </h1>
+                                <h5 class="jumbotron-subtitle">
+
+                                </h5>
+
+                            </div>
+                        </div>
+
+                       
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="jumbotron-overlay"></div>
+                </section>
+
+                <div class="h1-header">
+                    <h1 style="background-color: rgb(220, 45, 45);">ATTENTION!!</h1>
+                </div>
+                <section class="jumbotron" style="padding-top: 16px; padding-bottom: 16px;">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-md  content-wrapper">
+                                <h1 class="jumbotron-title display-1">
+                                    <p>This is neither a casino nor any other case of a hazardous site. People play here only for virtual money and they can get it for free!!!</p>
+                                </h1>
                             </div>
                         </div>
                         <div class="overlay"></div>
@@ -907,6 +1021,12 @@
                 <span style="color: rgb(255, 255, 255); font-weight: 600; font-size: 2rem;">To Spin</span>
             </div>
 
+            <div id="cookieNotification" style="display: none; position: absolute; left: 32px; bottom: 16px; background-color: rgba(60, 195, 45, 0.814); z-index: 1000; color: white; padding: 8px 16px 8px 16px; font-size: 16px;">
+                <p style="margin: 0;">This website uses cookies to ensure you get the best experience on our website.<button id="acceptCookies" style="color: black; appearance: none; margin-left: 4px; border-radius: 1000px; color: rgb(1, 114, 1);">Accept</button></p>
+                
+            </div>
+            
+
           <script>
 
             let name = 'UserName';
@@ -994,6 +1114,19 @@
                     console.log(error);
                 })
 
+                var cookiesAccepted = localStorage.getItem('cookiesAccepted');
+
+                if (!cookiesAccepted) {
+                    // If cookies haven't been accepted, show the notification
+                    $('#cookieNotification').show();
+                }
+
+                $('#acceptCookies').on('click', function() {
+                    // Set a flag in localStorage indicating that the user has accepted cookies
+                    localStorage.setItem('cookiesAccepted', 'true');
+                    // Hide the notification
+                    $('#cookieNotification').hide();
+                });
             });
 
             $(document).ready(function() {
@@ -1814,6 +1947,18 @@
                         jQuery(li).addClass('active');
                 });
             });
+
+            jQuery('#goArchieve').click(function () {
+                showOrHideGame('download');
+                jQuery('#nav-buttons li').removeClass('active');
+                jQuery('#liDownload').addClass('active');
+            })
+
+            jQuery('#goAnalytics').click(function () {
+                showOrHideGame('statistic');
+                jQuery('#nav-buttons li').removeClass('active');
+                jQuery('#liAnalytics').addClass('active');
+            })
 
             showOrHideGame('play');
 
